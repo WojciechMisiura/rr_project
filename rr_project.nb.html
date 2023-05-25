@@ -1761,36 +1761,24 @@ reproducing already existing project.</p>
 <p>##All required libraries will be listed here</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyZWFkcilcblxuYGBgIn0= -->
-<pre class="r"><code>library(readr)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShsdWJyaWRhdGUpXG5cbmBgYCJ9 -->
+<pre class="r"><code>library(lubridate)
 </code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gbGlicmFyeShyZWFkcikgOiB0aGVyZSBpcyBubyBwYWNrYWdlIGNhbGxlZCDigJhyZWFkcuKAmVxuIn0= -->
-<pre><code>Error in library(readr) : there is no package called ‘readr’</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiXG5BdHRhY2hpbmcgcGFja2FnZTog4oCYbHVicmlkYXRl4oCZXG5cblRoZSBmb2xsb3dpbmcgb2JqZWN0cyBhcmUgbWFza2VkIGZyb20g4oCYcGFja2FnZTpiYXNl4oCZOlxuXG4gICAgZGF0ZSwgaW50ZXJzZWN0LCBzZXRkaWZmLCB1bmlvblxuIn0= -->
+<pre><code>
+Attaching package: ‘lubridate’
+
+The following objects are masked from ‘package:base’:
+
+    date, intersect, setdiff, union</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>##First we read the dataset</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudXJsPC1cImh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9Xb2pjaWVjaE1pc2l1cmEvcnJfcHJvamVjdC9tYWluL1dhbG1hcnRfU3RvcmVfc2FsZXMuY3N2XCJcblxuZGF0YTwtcmVhZF9jc3YodXJsKVxuXG5gYGAifQ== -->
-<pre class="r"><code>url&lt;-&quot;https://raw.githubusercontent.com/WojciechMisiura/rr_project/main/Walmart_Store_sales.csv&quot;
-
-data&lt;-read_csv(url)
-</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiYGN1cmxgIHBhY2thZ2Ugbm90IGluc3RhbGxlZCwgZmFsbGluZyBiYWNrIHRvIHVzaW5nIGB1cmwoKWBSb3dzOiA2NDM1IENvbHVtbnM6IDjilIDilIAgQ29sdW1uIHNwZWNpZmljYXRpb24g4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAXG5EZWxpbWl0ZXI6IFwiLFwiXG5jaHIgKDEpOiBEYXRlXG5kYmwgKDcpOiBTdG9yZSwgV2Vla2x5X1NhbGVzLCBIb2xpZGF5X0ZsYWcsIFRlbXBlcmF0dXJlLCBGdWVsX1ByaWNlLCBDUEksIFVuZW1wbG95bWVudFxu4oS5IFVzZSBgc3BlYygpYCB0byByZXRyaWV2ZSB0aGUgZnVsbCBjb2x1bW4gc3BlY2lmaWNhdGlvbiBmb3IgdGhpcyBkYXRhLlxu4oS5IFNwZWNpZnkgdGhlIGNvbHVtbiB0eXBlcyBvciBzZXQgYHNob3dfY29sX3R5cGVzID0gRkFMU0VgIHRvIHF1aWV0IHRoaXMgbWVzc2FnZS5cbiJ9 -->
-<pre><code>`curl` package not installed, falling back to using `url()`Rows: 6435 Columns: 8── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
-Delimiter: &quot;,&quot;
-chr (1): Date
-dbl (7): Store, Weekly_Sales, Holiday_Flag, Temperature, Fuel_Price, CPI, Unemployment
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaGVhZChkYXRhKVxuYGBgIn0= -->
-<pre class="r"><code>head(data)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NiwibmNvbCI6OCwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI2IMOXIDgiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBd3R5aVREbWl1QmlZR0JnWm1CaEJwS3NRQ1lEYTJpSW02NEZBd01MRTVERHlNREN3QW1pSzREU3drQUdCeER6QVRHYi9RY0dNQ0NXQmdJQmtENm9nVndHcHJvR1JycEdCb1lHTUJGREl3d1JTM1FSSXpOMEVaQTV4aGptUUVXZ2JuVzBGRm4xTEMwdHpkR1M5Mm5CNHV0Y2poWXpEbWkzeXUxd05HM2FQNTNMdHREUmZHZlpPcEdxaDQ2bTMwMUJmSmcrbU1PUi9FQUlnUFU1dUtxRGpQTndjSFowQnpFY25MOXoyUUl0ZG5BUEFOcHVXK2pnN2dCVzdPRHpWRzVINE90V3VENld5U1Y3c3VwK09iQWsrVjc2dVBLUEE0dk1HZzVEdFpjT0xEVnZKMllVYlhCZ2hWaml3QnJHSWdGVUN0ZVhsU3dhZTJwYmtVTlcrdjViRDVQYUhMSXlIVmJNeWI3amtKVmwxYnpmNXFCRFZyWkozQ1BlNVE1Wk9YcFdMUGQ2NFBvVXpGd1huanJRVEN5TmxpaFk4eEp6VTR1aEVjc0JFd3d1eVM5S2hYSllYQkpMWUd5ZThOVFU3SnpLK09ERUhLQW1xSmhIZms1bVNtSmx2RnRPWWpwVWpEc2tOYmNndFNpeHBCUnVESmRiYVdwT2ZFQlJaakpNaE5rNXdCTm1SbWdlVUVOT2ZtVnVhbDRKbWdzNWkvTEw5V0N1NUFWaXBnWWc4Zi8vLzEvb1hrbk9TU3lHZVFVbXlKV1NXSktvbDFZRTFBL2svVVBUd3A1ZlVKS1pud2ZVeEFUS0dLeG9taG1MMEFUNFMvTkFMa25SVGM0b3pjdldOUUZaQUphR0FGNG9tdzJKelFHeGt1ay8xQ2hXcUZGc3FYbnBtWG13c0dETlNVeEt6WUZ5K0lBK0JudFlyNkFvRXhnZVVKOEFSWXYxU3ZKTEVtSHF1Skx6YzJBaVlMOHgvQU1BMVBJa2VROEVBQUE9In0= -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NiwibmNvbCI6OCwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI2IMOXIDgiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBd3R5aVREbWl1QmlZR0JnWm1CaEJwS3NRQ1lEYTJpSW02NEZBd01MRTVERHlNREN3QW1pSzREU3drQUdCeER6QVRHYi9RY0dNQ0NXQmdJQmtENm9nVndHcHJvR1JycEdCb1lHTUJGREl3d1JTM1FSSXpOMEVaQTV4aGptUUVXZ2JuVzBGRm4xTEMwdHpkR1M5Mm5CNHV0Y2poWXpEbWkzeXUxd05HM2FQNTNMdHREUmZHZlpPcEdxaDQ2bTMwMUJmSmcrbU1PUi9FQUlnUFU1dUtxRGpQTndjSFowQnpFY25MOXoyUUl0ZG5BUEFOcHVXK2pnN2dCVzdPRHpWRzVINE90V3VENld5U1Y3c3VwK09iQWsrVjc2dVBLUEE0dk1HZzVEdFpjT0xEVnZKMllVYlhCZ2hWaml3QnJHSWdGVUN0ZVhsU3dhZTJwYmtVTlcrdjViRDVQYUhMSXlIVmJNeWI3amtKVmwxYnpmNXFCRFZyWkozQ1BlNVE1Wk9YcFdMUGQ2NFBvVXpGd1huanJRVEN5TmxpaFk4eEp6VTR1aEVjc0JFd3d1eVM5S2hYSllYQkpMWUd5ZThOVFU3SnpLK09ERUhLQW1xSmhIZms1bVNtSmx2RnRPWWpwVWpEc2tOYmNndFNpeHBCUnVESmRiYVdwT2ZFQlJaakpNaE5rNXdCTm1SbWdlVUVOT2ZtVnVhbDRKbWdzNWkvTEw5V0N1NUFWaXBnWWc4Zi8vLzEvb1hrbk9TU3lHZVFVbXlKV1NXSktvbDFZRTFBL2svVVBUd3A1ZlVKS1pud2ZVeEFUS0dLeG9taG1MMEFUNFMvTkFMa25SVGM0b3pjc0c1VEFHTHJBMEJQQkMyV3hJYkE2SWxVei9vVWF4UW8xaVM4MUx6OHlEaFFWclRtSlNhZzZVd3dmME1kakRlZ1ZGbWNEd2dQb0VLRnFzVjVKZmtnaFR4NVdjbndNVEFmdU40UjhBajJFK2d3OEVBQUE9In0= -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["Store"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Date"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Weekly_Sales"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Holiday_Flag"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Temperature"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Fuel_Price"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["CPI"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["Unemployment"],"name":[8],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"05-02-2010","3":"1643691","4":"0","5":"42.31","6":"2.572","7":"211.0964","8":"8.106"},{"1":"1","2":"12-02-2010","3":"1641957","4":"1","5":"38.51","6":"2.548","7":"211.2422","8":"8.106"},{"1":"1","2":"19-02-2010","3":"1611968","4":"0","5":"39.93","6":"2.514","7":"211.2891","8":"8.106"},{"1":"1","2":"26-02-2010","3":"1409728","4":"0","5":"46.63","6":"2.561","7":"211.3196","8":"8.106"},{"1":"1","2":"05-03-2010","3":"1554807","4":"0","5":"46.50","6":"2.625","7":"211.3501","8":"8.106"},{"1":"1","2":"12-03-2010","3":"1439542","4":"0","5":"57.79","6":"2.667","7":"211.3806","8":"8.106"}],"options":{"columns":{"min":{},"max":[10],"total":[8]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
@@ -1798,9 +1786,173 @@ dbl (7): Store, Weekly_Sales, Holiday_Flag, Temperature, Fuel_Price, CPI, Unempl
 </div>
 <!-- rnb-frame-end -->
 <!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubmFtZXMoZGF0YSlcbmBgYCJ9 -->
+<pre class="r"><code>names(data)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiU3RvcmVcIiAgICAgICAgXCJEYXRlXCIgICAgICAgICBcIldlZWtseV9TYWxlc1wiIFwiSG9saWRheV9GbGFnXCIgXCJUZW1wZXJhdHVyZVwiICBcIkZ1ZWxfUHJpY2VcIiAgIFwiQ1BJXCIgICAgICAgICAgXCJVbmVtcGxveW1lbnRcIlxuIn0= -->
+<pre><code>[1] &quot;Store&quot;        &quot;Date&quot;         &quot;Weekly_Sales&quot; &quot;Holiday_Flag&quot; &quot;Temperature&quot;  &quot;Fuel_Price&quot;   &quot;CPI&quot;          &quot;Unemployment&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY29sbmFtZXMoZGF0YSlcbmBgYCJ9 -->
+<pre class="r"><code>colnames(data)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiU3RvcmVcIiAgICAgICAgXCJEYXRlXCIgICAgICAgICBcIldlZWtseV9TYWxlc1wiIFwiSG9saWRheV9GbGFnXCIgXCJUZW1wZXJhdHVyZVwiICBcIkZ1ZWxfUHJpY2VcIiAgIFwiQ1BJXCIgICAgICAgICAgXCJVbmVtcGxveW1lbnRcIlxuIn0= -->
+<pre><code>[1] &quot;Store&quot;        &quot;Date&quot;         &quot;Weekly_Sales&quot; &quot;Holiday_Flag&quot; &quot;Temperature&quot;  &quot;Fuel_Price&quot;   &quot;CPI&quot;          &quot;Unemployment&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3RyKGRhdGEpXG5gYGAifQ== -->
+<pre class="r"><code>str(data)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoic3BjX3RibF8gWzYsNDM1IMOXIDhdIChTMzogc3BlY190YmxfZGYvdGJsX2RmL3RibC9kYXRhLmZyYW1lKVxuICQgU3RvcmUgICAgICAgOiBudW0gWzE6NjQzNV0gMSAxIDEgMSAxIDEgMSAxIDEgMSAuLi5cbiAkIERhdGUgICAgICAgIDogY2hyIFsxOjY0MzVdIFwiMDUtMDItMjAxMFwiIFwiMTItMDItMjAxMFwiIFwiMTktMDItMjAxMFwiIFwiMjYtMDItMjAxMFwiIC4uLlxuICQgV2Vla2x5X1NhbGVzOiBudW0gWzE6NjQzNV0gMTY0MzY5MSAxNjQxOTU3IDE2MTE5NjggMTQwOTcyOCAxNTU0ODA3IC4uLlxuICQgSG9saWRheV9GbGFnOiBudW0gWzE6NjQzNV0gMCAxIDAgMCAwIDAgMCAwIDAgMCAuLi5cbiAkIFRlbXBlcmF0dXJlIDogbnVtIFsxOjY0MzVdIDQyLjMgMzguNSAzOS45IDQ2LjYgNDYuNSAuLi5cbiAkIEZ1ZWxfUHJpY2UgIDogbnVtIFsxOjY0MzVdIDIuNTcgMi41NSAyLjUxIDIuNTYgMi42MiAuLi5cbiAkIENQSSAgICAgICAgIDogbnVtIFsxOjY0MzVdIDIxMSAyMTEgMjExIDIxMSAyMTEgLi4uXG4gJCBVbmVtcGxveW1lbnQ6IG51bSBbMTo2NDM1XSA4LjExIDguMTEgOC4xMSA4LjExIDguMTEgLi4uXG4gLSBhdHRyKCosIFwic3BlY1wiKT1cbiAgLi4gY29scyhcbiAgLi4gICBTdG9yZSA9IGNvbF9kb3VibGUoKSxcbiAgLi4gICBEYXRlID0gY29sX2NoYXJhY3RlcigpLFxuICAuLiAgIFdlZWtseV9TYWxlcyA9IGNvbF9kb3VibGUoKSxcbiAgLi4gICBIb2xpZGF5X0ZsYWcgPSBjb2xfZG91YmxlKCksXG4gIC4uICAgVGVtcGVyYXR1cmUgPSBjb2xfZG91YmxlKCksXG4gIC4uICAgRnVlbF9QcmljZSA9IGNvbF9kb3VibGUoKSxcbiAgLi4gICBDUEkgPSBjb2xfZG91YmxlKCksXG4gIC4uICAgVW5lbXBsb3ltZW50ID0gY29sX2RvdWJsZSgpXG4gIC4uIClcbiAtIGF0dHIoKiwgXCJwcm9ibGVtc1wiKT08ZXh0ZXJuYWxwdHI+IFxuIn0= -->
+<pre><code>spc_tbl_ [6,435 × 8] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ Store       : num [1:6435] 1 1 1 1 1 1 1 1 1 1 ...
+ $ Date        : chr [1:6435] &quot;05-02-2010&quot; &quot;12-02-2010&quot; &quot;19-02-2010&quot; &quot;26-02-2010&quot; ...
+ $ Weekly_Sales: num [1:6435] 1643691 1641957 1611968 1409728 1554807 ...
+ $ Holiday_Flag: num [1:6435] 0 1 0 0 0 0 0 0 0 0 ...
+ $ Temperature : num [1:6435] 42.3 38.5 39.9 46.6 46.5 ...
+ $ Fuel_Price  : num [1:6435] 2.57 2.55 2.51 2.56 2.62 ...
+ $ CPI         : num [1:6435] 211 211 211 211 211 ...
+ $ Unemployment: num [1:6435] 8.11 8.11 8.11 8.11 8.11 ...
+ - attr(*, &quot;spec&quot;)=
+  .. cols(
+  ..   Store = col_double(),
+  ..   Date = col_character(),
+  ..   Weekly_Sales = col_double(),
+  ..   Holiday_Flag = col_double(),
+  ..   Temperature = col_double(),
+  ..   Fuel_Price = col_double(),
+  ..   CPI = col_double(),
+  ..   Unemployment = col_double()
+  .. )
+ - attr(*, &quot;problems&quot;)=&lt;externalptr&gt; </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtbWFyeShkYXRhKVxuYGBgIn0= -->
+<pre class="r"><code>summary(data)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICBTdG9yZSAgICAgICAgRGF0ZSAgICAgICAgICAgIFdlZWtseV9TYWxlcyAgICAgIEhvbGlkYXlfRmxhZyAgICAgIFRlbXBlcmF0dXJlICAgICAgIEZ1ZWxfUHJpY2UgICAgICAgICBDUEkgICAgICAgICBVbmVtcGxveW1lbnQgICBcbiBNaW4uICAgOiAxICAgTGVuZ3RoOjY0MzUgICAgICAgIE1pbi4gICA6IDIwOTk4NiAgIE1pbi4gICA6MC4wMDAwMCAgIE1pbi4gICA6IC0yLjA2ICAgTWluLiAgIDoyLjQ3MiAgIE1pbi4gICA6MTI2LjEgICBNaW4uICAgOiAzLjg3OSAgXG4gMXN0IFF1LjoxMiAgIENsYXNzIDpjaGFyYWN0ZXIgICAxc3QgUXUuOiA1NTMzNTAgICAxc3QgUXUuOjAuMDAwMDAgICAxc3QgUXUuOiA0Ny40NiAgIDFzdCBRdS46Mi45MzMgICAxc3QgUXUuOjEzMS43ICAgMXN0IFF1LjogNi44OTEgIFxuIE1lZGlhbiA6MjMgICBNb2RlICA6Y2hhcmFjdGVyICAgTWVkaWFuIDogOTYwNzQ2ICAgTWVkaWFuIDowLjAwMDAwICAgTWVkaWFuIDogNjIuNjcgICBNZWRpYW4gOjMuNDQ1ICAgTWVkaWFuIDoxODIuNiAgIE1lZGlhbiA6IDcuODc0ICBcbiBNZWFuICAgOjIzICAgICAgICAgICAgICAgICAgICAgIE1lYW4gICA6MTA0Njk2NSAgIE1lYW4gICA6MC4wNjk5MyAgIE1lYW4gICA6IDYwLjY2ICAgTWVhbiAgIDozLjM1OSAgIE1lYW4gICA6MTcxLjYgICBNZWFuICAgOiA3Ljk5OSAgXG4gM3JkIFF1LjozNCAgICAgICAgICAgICAgICAgICAgICAzcmQgUXUuOjE0MjAxNTkgICAzcmQgUXUuOjAuMDAwMDAgICAzcmQgUXUuOiA3NC45NCAgIDNyZCBRdS46My43MzUgICAzcmQgUXUuOjIxMi43ICAgM3JkIFF1LjogOC42MjIgIFxuIE1heC4gICA6NDUgICAgICAgICAgICAgICAgICAgICAgTWF4LiAgIDozODE4Njg2ICAgTWF4LiAgIDoxLjAwMDAwICAgTWF4LiAgIDoxMDAuMTQgICBNYXguICAgOjQuNDY4ICAgTWF4LiAgIDoyMjcuMiAgIE1heC4gICA6MTQuMzEzICBcbiJ9 -->
+<pre><code>     Store        Date            Weekly_Sales      Holiday_Flag      Temperature       Fuel_Price         CPI         Unemployment   
+ Min.   : 1   Length:6435        Min.   : 209986   Min.   :0.00000   Min.   : -2.06   Min.   :2.472   Min.   :126.1   Min.   : 3.879  
+ 1st Qu.:12   Class :character   1st Qu.: 553350   1st Qu.:0.00000   1st Qu.: 47.46   1st Qu.:2.933   1st Qu.:131.7   1st Qu.: 6.891  
+ Median :23   Mode  :character   Median : 960746   Median :0.00000   Median : 62.67   Median :3.445   Median :182.6   Median : 7.874  
+ Mean   :23                      Mean   :1046965   Mean   :0.06993   Mean   : 60.66   Mean   :3.359   Mean   :171.6   Mean   : 7.999  
+ 3rd Qu.:34                      3rd Qu.:1420159   3rd Qu.:0.00000   3rd Qu.: 74.94   3rd Qu.:3.735   3rd Qu.:212.7   3rd Qu.: 8.622  
+ Max.   :45                      Max.   :3818686   Max.   :1.00000   Max.   :100.14   Max.   :4.468   Max.   :227.2   Max.   :14.313  </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY29sU3Vtcyhpcy5uYShkYXRhKSlcblxuYGBgIn0= -->
+<pre class="r"><code>colSums(is.na(data))
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgIFN0b3JlICAgICAgICAgRGF0ZSBXZWVrbHlfU2FsZXMgSG9saWRheV9GbGFnICBUZW1wZXJhdHVyZSAgIEZ1ZWxfUHJpY2UgICAgICAgICAgQ1BJIFVuZW1wbG95bWVudCBcbiAgICAgICAgICAgMCAgICAgICAgICAgIDAgICAgICAgICAgICAwICAgICAgICAgICAgMCAgICAgICAgICAgIDAgICAgICAgICAgICAwICAgICAgICAgICAgMCAgICAgICAgICAgIDAgXG4ifQ== -->
+<pre><code>       Store         Date Weekly_Sales Holiday_Flag  Temperature   Fuel_Price          CPI Unemployment 
+           0            0            0            0            0            0            0            0 </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYW55KGR1cGxpY2F0ZWQoZGF0YSkpXG5gYGAifQ== -->
+<pre class="r"><code>any(duplicated(data))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIEZBTFNFXG4ifQ== -->
+<pre><code>[1] FALSE</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF0YSREYXRlIDwtIGFzLkRhdGUoZGF0YSREYXRlLCBmb3JtYXQgPSBcIiVkLSVtLSVZXCIpXG5cbmRhdGEkV2Vla2x5X1NhbGVzIDwtIHJvdW5kKGRhdGEkV2Vla2x5X1NhbGVzIC8gMTAwMCwgMylcbmRhdGEkQ1BJIDwtIHJvdW5kKGRhdGEkQ1BJLCAyKVxuXG5kYXRhMiA8LSBkYXRhXG5cbmRhdGEyIDwtIGRhdGEyW29yZGVyKGRhdGEyJERhdGUpLCBdXG5cbnBhbmVsIDwtIGRhdGEyICU+JVxuICBncm91cF9ieShTdG9yZSwgRGF0ZSkgJT4lXG4gIHN1bW1hcmlzZShcbiAgICBXZWVrbHlfU2FsZXMgPSBtZWFuKFdlZWtseV9TYWxlcyksXG4gICAgSG9saWRheV9GbGFnID0gbWVhbihIb2xpZGF5X0ZsYWcpLFxuICAgIFRlbXBlcmF0dXJlID0gbWVhbihUZW1wZXJhdHVyZSksXG4gICAgRnVlbF9QcmljZSA9IG1lYW4oRnVlbF9QcmljZSksXG4gICAgQ1BJID0gbWVhbihDUEkpLFxuICAgIFVuZW1wbG95bWVudCA9IG1lYW4oVW5lbXBsb3ltZW50KSxcbiAgICAuZ3JvdXBzID0gXCJkcm9wXCJcbiAgKVxuXG5wYW5lbCRNb250aCA8LSBtb250aChwYW5lbCREYXRlKVxucGFuZWwkWWVhciA8LSB5ZWFyKHBhbmVsJERhdGUpXG5cbmhlYWQocGFuZWwpXG5gYGAifQ== -->
+<pre class="r"><code>data$Date &lt;- as.Date(data$Date, format = &quot;%d-%m-%Y&quot;)
+
+data$Weekly_Sales &lt;- round(data$Weekly_Sales / 1000, 3)
+data$CPI &lt;- round(data$CPI, 2)
+
+data2 &lt;- data
+
+data2 &lt;- data2[order(data2$Date), ]
+
+panel &lt;- data2 %&gt;%
+  group_by(Store, Date) %&gt;%
+  summarise(
+    Weekly_Sales = mean(Weekly_Sales),
+    Holiday_Flag = mean(Holiday_Flag),
+    Temperature = mean(Temperature),
+    Fuel_Price = mean(Fuel_Price),
+    CPI = mean(CPI),
+    Unemployment = mean(Unemployment),
+    .groups = &quot;drop&quot;
+  )
+
+panel$Month &lt;- month(panel$Date)
+panel$Year &lt;- year(panel$Date)
+
+head(panel)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NiwibmNvbCI6MTAsInN1bW1hcnkiOnsiQSB0aWJibGUiOlsiNiDDlyAxMCJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUF3dHlpVERtaXVCaVlHQmdabUJoQnBLc1FDWURhMmlJbTY0RkF3TUxFNUREeU1EQ3dBbWlLNERTd2tBR1NEVWZFTFBaZjJBQUEySnBvSDZ3UG9jenN4cEFQSWN6OHhnZzlFSW9meW1VdndMS1h3UFZoK0lRMXVTY3hPSmlJRU1BU1pERkpiRWtGVWovZ3p2dWwrK2xqeXQvUDdmLzVicncxSUZtSWZ1ZklESnZodjIzL2hpTnI0ZjY3WDg4ZEY4blV2WFEvanVYYmNIaTYzQlB3WnlLY0RSQkFQR1VxenJJT0E4SFowZXd1UTdPRUlNZDNBT0FwdHNXT3JnN1FEem44MVJ1UitEclZyZytsc2tsZTdMcWZqbXdKSUVjL01lQlJXWU5oNkhhU3dlV21yY1RNNG8yT0xCQ0xIRmdEV09SQUNxRjY4dEtOZ1lCaDZ4MGlMMVptUkI3czdMQS9uSEl5b2JLNTRDOEd3UFhwMkFHRGhCaWFiZytxR2R4MGh5b05GemYvQXlJT0pFMGVtVG5KZWFtd2lLYkN5WVlYSkpmbElvUzh4QTJUM2hxYW5aT1pYeHdZZzVRRTFUTUl6OG5NeVd4TXQ0dEp6RWRLc1lka3BwYmtGcVVXRklLTjRiTHJUUTFKejZnS0RNWkpzTHNIT0FKTXlNMEQ2Z2hKNzh5TnpXdkJPWUkzL3k4a2d5WUl5SlRFNHZRbk01WmxGK3VCM00rTHhBek5RQ0ovLy8vLzRJb1pQclBnSnFHdVZJU1N4TDEwb3FBV2hqQUtSbkZPUGI4Z3BMTS9EeWdZVXlnWE1pS3BwbXhDRTFBb0RRUFpIbUtibkpHYVY2MnJxRUZBeVRyTWtLRG1SZktaa05pYzBIc1pJYTVqQlZxRmx0cVhucG1IaXhnV0hNU2sxSnpvQncrb0MvQm50UXJLTXFFQnc0WFVMUllyeVMvSkJHbWppczVQd2NtQXNtbS93QlVrTWcyZlFRQUFBPT0ifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Store"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Date"],"name":[2],"type":["date"],"align":["right"]},{"label":["Weekly_Sales"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Holiday_Flag"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Temperature"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Fuel_Price"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["CPI"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["Unemployment"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["Month"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["Year"],"name":[10],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"2010-02-05","3":"1.644","4":"0","5":"42.31","6":"2.572","7":"211.10","8":"8.106","9":"2","10":"2010"},{"1":"1","2":"2010-02-12","3":"1.642","4":"1","5":"38.51","6":"2.548","7":"211.24","8":"8.106","9":"2","10":"2010"},{"1":"1","2":"2010-02-19","3":"1.612","4":"0","5":"39.93","6":"2.514","7":"211.29","8":"8.106","9":"2","10":"2010"},{"1":"1","2":"2010-02-26","3":"1.410","4":"0","5":"46.63","6":"2.561","7":"211.32","8":"8.106","9":"2","10":"2010"},{"1":"1","2":"2010-03-05","3":"1.555","4":"0","5":"46.50","6":"2.625","7":"211.35","8":"8.106","9":"3","10":"2010"},{"1":"1","2":"2010-03-12","3":"1.440","4":"0","5":"57.79","6":"2.667","7":"211.38","8":"8.106","9":"3","10":"2010"}],"options":{"columns":{"min":{},"max":[10],"total":[10]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF0YV9zdWIgPC0gZGF0YVssICEobmFtZXMoZGF0YSkgJWluJSBjKCdNb250aCcsICdZZWFyJywgJ1N0b3JlJykpXVxuXG5zdW1tYXJ5KGRhdGFfc3ViKVxuYGBgIn0= -->
+<pre class="r"><code>data_sub &lt;- data[, !(names(data) %in% c(&#39;Month&#39;, &#39;Year&#39;, &#39;Store&#39;))]
+
+summary(data_sub)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgRGF0ZSAgICAgICAgICAgICBXZWVrbHlfU2FsZXMgICAgIEhvbGlkYXlfRmxhZyAgICAgIFRlbXBlcmF0dXJlICAgICAgIEZ1ZWxfUHJpY2UgICAgICAgICBDUEkgICAgICAgICBVbmVtcGxveW1lbnQgICBcbiBNaW4uICAgOjIwMTAtMDItMDUgICBNaW4uICAgOjAuMjEwMCAgIE1pbi4gICA6MC4wMDAwMCAgIE1pbi4gICA6IC0yLjA2ICAgTWluLiAgIDoyLjQ3MiAgIE1pbi4gICA6MTI2LjEgICBNaW4uICAgOiAzLjg3OSAgXG4gMXN0IFF1LjoyMDEwLTEwLTA4ICAgMXN0IFF1LjowLjU1MzUgICAxc3QgUXUuOjAuMDAwMDAgICAxc3QgUXUuOiA0Ny40NiAgIDFzdCBRdS46Mi45MzMgICAxc3QgUXUuOjEzMS43ICAgMXN0IFF1LjogNi44OTEgIFxuIE1lZGlhbiA6MjAxMS0wNi0xNyAgIE1lZGlhbiA6MC45NjEwICAgTWVkaWFuIDowLjAwMDAwICAgTWVkaWFuIDogNjIuNjcgICBNZWRpYW4gOjMuNDQ1ICAgTWVkaWFuIDoxODIuNiAgIE1lZGlhbiA6IDcuODc0ICBcbiBNZWFuICAgOjIwMTEtMDYtMTcgICBNZWFuICAgOjEuMDQ3MCAgIE1lYW4gICA6MC4wNjk5MyAgIE1lYW4gICA6IDYwLjY2ICAgTWVhbiAgIDozLjM1OSAgIE1lYW4gICA6MTcxLjYgICBNZWFuICAgOiA3Ljk5OSAgXG4gM3JkIFF1LjoyMDEyLTAyLTI0ICAgM3JkIFF1LjoxLjQyMDAgICAzcmQgUXUuOjAuMDAwMDAgICAzcmQgUXUuOiA3NC45NCAgIDNyZCBRdS46My43MzUgICAzcmQgUXUuOjIxMi43ICAgM3JkIFF1LjogOC42MjIgIFxuIE1heC4gICA6MjAxMi0xMC0yNiAgIE1heC4gICA6My44MTkwICAgTWF4LiAgIDoxLjAwMDAwICAgTWF4LiAgIDoxMDAuMTQgICBNYXguICAgOjQuNDY4ICAgTWF4LiAgIDoyMjcuMiAgIE1heC4gICA6MTQuMzEzICBcbiJ9 -->
+<pre><code>      Date             Weekly_Sales     Holiday_Flag      Temperature       Fuel_Price         CPI         Unemployment   
+ Min.   :2010-02-05   Min.   :0.2100   Min.   :0.00000   Min.   : -2.06   Min.   :2.472   Min.   :126.1   Min.   : 3.879  
+ 1st Qu.:2010-10-08   1st Qu.:0.5535   1st Qu.:0.00000   1st Qu.: 47.46   1st Qu.:2.933   1st Qu.:131.7   1st Qu.: 6.891  
+ Median :2011-06-17   Median :0.9610   Median :0.00000   Median : 62.67   Median :3.445   Median :182.6   Median : 7.874  
+ Mean   :2011-06-17   Mean   :1.0470   Mean   :0.06993   Mean   : 60.66   Mean   :3.359   Mean   :171.6   Mean   : 7.999  
+ 3rd Qu.:2012-02-24   3rd Qu.:1.4200   3rd Qu.:0.00000   3rd Qu.: 74.94   3rd Qu.:3.735   3rd Qu.:212.7   3rd Qu.: 8.622  
+ Max.   :2012-10-26   Max.   :3.8190   Max.   :1.00000   Max.   :100.14   Max.   :4.468   Max.   :227.2   Max.   :14.313  </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKIyMgQ29udGV4dApBcyBwYXJ0IG9mIFJlcHJvZHVjaWJsZSBSZXNlYXJjaCBjb3Vyc2Ugd2hpY2ggaXMgTWFuZGF0b3J5IGNvdXJzZSBmb3IgMm5kIHllYXIgc3R1ZGVudHMgb2YgRGF0YSBTY2llbmNlIGFuZCBCdXNpbmVzcyBBbmFseXRpY3MsIHdlIGFyZSByZXByb2R1Y2luZyBhbHJlYWR5IGV4aXN0aW5nIHByb2plY3QuIAoKTGluayB0byB0aGUgcHJvamVjdDoKaHR0cHM6Ly93d3cua2FnZ2xlLmNvbS9jb2RlL2FsZmlhbnN5YWhhY2htYWQvd2FsbWFydC1zYWxlcy1hbmFseXNpcy1lZGEtYW5kLWVjb25vbWV0cmljcwoKIyNBbGwgcmVxdWlyZWQgbGlicmFyaWVzIHdpbGwgYmUgbGlzdGVkIGhlcmUKCmBgYHtyfQpsaWJyYXJ5KHJlYWRyKQpgYGAKCiMjRmlyc3Qgd2UgcmVhZCB0aGUgZGF0YXNldAoKYGBge3J9CnVybDwtImh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9Xb2pjaWVjaE1pc2l1cmEvcnJfcHJvamVjdC9tYWluL1dhbG1hcnRfU3RvcmVfc2FsZXMuY3N2IiAjYXMgd2UgYWxyZWFkeSBhZGRlZCBvdXIgZGF0YXNldCB0byBnaXRodWIsIHdlIHdpbGwgcmVhZCBkYXRhIGRpcmVjdGx5IGZyb20gZ2l0aHViCgpkYXRhPC1yZWFkX2Nzdih1cmwpCgpoZWFkKGRhdGEpCmBgYA==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKIyMgQ29udGV4dApBcyBwYXJ0IG9mIFJlcHJvZHVjaWJsZSBSZXNlYXJjaCBjb3Vyc2Ugd2hpY2ggaXMgTWFuZGF0b3J5IGNvdXJzZSBmb3IgMm5kIHllYXIgc3R1ZGVudHMgb2YgRGF0YSBTY2llbmNlIGFuZCBCdXNpbmVzcyBBbmFseXRpY3MsIHdlIGFyZSByZXByb2R1Y2luZyBhbHJlYWR5IGV4aXN0aW5nIHByb2plY3QuIAoKTGluayB0byB0aGUgcHJvamVjdDoKaHR0cHM6Ly93d3cua2FnZ2xlLmNvbS9jb2RlL2FsZmlhbnN5YWhhY2htYWQvd2FsbWFydC1zYWxlcy1hbmFseXNpcy1lZGEtYW5kLWVjb25vbWV0cmljcwoKIyNBbGwgcmVxdWlyZWQgbGlicmFyaWVzIHdpbGwgYmUgbGlzdGVkIGhlcmUKCmBgYHtyfQpsaWJyYXJ5KHJlYWRyKQpsaWJyYXJ5KGRwbHlyKQpsaWJyYXJ5KGdncGxvdDIpCmxpYnJhcnkobHVicmlkYXRlKQpgYGAKCiMjRmlyc3Qgd2UgcmVhZCB0aGUgZGF0YXNldAoKYGBge3J9CnVybDwtImh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9Xb2pjaWVjaE1pc2l1cmEvcnJfcHJvamVjdC9tYWluL1dhbG1hcnRfU3RvcmVfc2FsZXMuY3N2IiAjYXMgd2UgYWxyZWFkeSBhZGRlZCBvdXIgZGF0YXNldCB0byBnaXRodWIsIHdlIHdpbGwgcmVhZCBkYXRhIGRpcmVjdGx5IGZyb20gZ2l0aHViCgpkYXRhPC1yZWFkX2Nzdih1cmwpCgpoZWFkKGRhdGEpCmBgYAoKYGBge3J9Cm5hbWVzKGRhdGEpCmBgYAoKYGBge3J9CmNvbG5hbWVzKGRhdGEpCmBgYAoKYGBge3J9CnN0cihkYXRhKQpgYGAKCmBgYHtyfQpzdW1tYXJ5KGRhdGEpCmBgYAoKYGBge3J9CmNvbFN1bXMoaXMubmEoZGF0YSkpCmBgYAoKYGBge3J9CmFueShkdXBsaWNhdGVkKGRhdGEpKQpgYGAKCmBgYHtyfQpkYXRhJERhdGUgPC0gYXMuRGF0ZShkYXRhJERhdGUsIGZvcm1hdCA9ICIlZC0lbS0lWSIpCgpkYXRhJFdlZWtseV9TYWxlcyA8LSByb3VuZChkYXRhJFdlZWtseV9TYWxlcyAvIDEwMDAsIDMpCmRhdGEkQ1BJIDwtIHJvdW5kKGRhdGEkQ1BJLCAyKQoKZGF0YTIgPC0gZGF0YQoKZGF0YTIgPC0gZGF0YTJbb3JkZXIoZGF0YTIkRGF0ZSksIF0KCnBhbmVsIDwtIGRhdGEyICU+JQogIGdyb3VwX2J5KFN0b3JlLCBEYXRlKSAlPiUKICBzdW1tYXJpc2UoCiAgICBXZWVrbHlfU2FsZXMgPSBtZWFuKFdlZWtseV9TYWxlcyksCiAgICBIb2xpZGF5X0ZsYWcgPSBtZWFuKEhvbGlkYXlfRmxhZyksCiAgICBUZW1wZXJhdHVyZSA9IG1lYW4oVGVtcGVyYXR1cmUpLAogICAgRnVlbF9QcmljZSA9IG1lYW4oRnVlbF9QcmljZSksCiAgICBDUEkgPSBtZWFuKENQSSksCiAgICBVbmVtcGxveW1lbnQgPSBtZWFuKFVuZW1wbG95bWVudCksCiAgICAuZ3JvdXBzID0gImRyb3AiCiAgKQoKcGFuZWwkTW9udGggPC0gbW9udGgocGFuZWwkRGF0ZSkKcGFuZWwkWWVhciA8LSB5ZWFyKHBhbmVsJERhdGUpCgpoZWFkKHBhbmVsKQpgYGAKCmBgYHtyfQpkYXRhX3N1YiA8LSBkYXRhWywgIShuYW1lcyhkYXRhKSAlaW4lIGMoJ01vbnRoJywgJ1llYXInLCAnU3RvcmUnKSldCgpzdW1tYXJ5KGRhdGFfc3ViKQpgYGAKCmBgYHtyfQoKYGBgCgpgYGB7cn0KCmBgYAoKYGBge3J9CgpgYGAKCmBgYHtyfQoKYGBgCgpgYGB7cn0KCmBgYAo=</div>
 
 
 

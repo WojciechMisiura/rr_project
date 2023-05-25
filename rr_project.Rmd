@@ -13,6 +13,9 @@ https://www.kaggle.com/code/alfiansyahachmad/walmart-sales-analysis-eda-and-econ
 
 ```{r}
 library(readr)
+library(dplyr)
+library(ggplot2)
+library(lubridate)
 ```
 
 ##First we read the dataset
@@ -23,4 +26,82 @@ url<-"https://raw.githubusercontent.com/WojciechMisiura/rr_project/main/Walmart_
 data<-read_csv(url)
 
 head(data)
+```
+
+```{r}
+names(data)
+```
+
+```{r}
+colnames(data)
+```
+
+```{r}
+str(data)
+```
+
+```{r}
+summary(data)
+```
+
+```{r}
+colSums(is.na(data))
+```
+
+```{r}
+any(duplicated(data))
+```
+
+```{r}
+data$Date <- as.Date(data$Date, format = "%d-%m-%Y")
+
+data$Weekly_Sales <- round(data$Weekly_Sales / 1000, 3)
+data$CPI <- round(data$CPI, 2)
+
+data2 <- data
+
+data2 <- data2[order(data2$Date), ]
+
+panel <- data2 %>%
+  group_by(Store, Date) %>%
+  summarise(
+    Weekly_Sales = mean(Weekly_Sales),
+    Holiday_Flag = mean(Holiday_Flag),
+    Temperature = mean(Temperature),
+    Fuel_Price = mean(Fuel_Price),
+    CPI = mean(CPI),
+    Unemployment = mean(Unemployment),
+    .groups = "drop"
+  )
+
+panel$Month <- month(panel$Date)
+panel$Year <- year(panel$Date)
+
+head(panel)
+```
+
+```{r}
+data_sub <- data[, !(names(data) %in% c('Month', 'Year', 'Store'))]
+
+summary(data_sub)
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
 ```
