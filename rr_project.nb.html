@@ -1752,31 +1752,55 @@ display: none;
 
 
 <!-- rnb-text-begin -->
-<p>This is an <a href="http://rmarkdown.rstudio.com">R Markdown</a>
-Notebook. When you execute code within the notebook, the results appear
-beneath the code.</p>
-<p>Try executing this chunk by clicking the <em>Run</em> button within
-the chunk or by placing your cursor inside it and pressing
-<em>Cmd+Shift+Enter</em>.</p>
+<div id="context" class="section level2">
+<h2>Context</h2>
+<p>As part of Reproducible Research course which is Mandatory course for
+2nd year students of Data Science and Business Analytics, we are
+reproducing already existing project.</p>
+<p>Link to the project: <a href="https://www.kaggle.com/code/alfiansyahachmad/walmart-sales-analysis-eda-and-econometrics" class="uri">https://www.kaggle.com/code/alfiansyahachmad/walmart-sales-analysis-eda-and-econometrics</a></p>
+<p>##All required libraries will be listed here</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGxvdChjYXJzKVxuYGBgIn0= -->
-<pre class="r"><code>plot(cars)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyZWFkcilcblxuYGBgIn0= -->
+<pre class="r"><code>library(readr)
+</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gbGlicmFyeShyZWFkcikgOiB0aGVyZSBpcyBubyBwYWNrYWdlIGNhbGxlZCDigJhyZWFkcuKAmVxuIn0= -->
+<pre><code>Error in library(readr) : there is no package called ‘readr’</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Add a new chunk by clicking the <em>Insert Chunk</em> button on the
-toolbar or by pressing <em>Cmd+Option+I</em>.</p>
-<p>When you save the notebook, an HTML file containing the code and
-output will be saved alongside it (click the <em>Preview</em> button or
-press <em>Cmd+Shift+K</em> to preview the HTML file).</p>
-<p>The preview shows you a rendered HTML copy of the contents of the
-editor. Consequently, unlike <em>Knit</em>, <em>Preview</em> does not
-run any R code chunks. Instead, the output of the chunk when it was last
-run in the editor is displayed.</p>
+<p>##First we read the dataset</p>
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudXJsPC1cImh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9Xb2pjaWVjaE1pc2l1cmEvcnJfcHJvamVjdC9tYWluL1dhbG1hcnRfU3RvcmVfc2FsZXMuY3N2XCJcblxuZGF0YTwtcmVhZF9jc3YodXJsKVxuXG5gYGAifQ== -->
+<pre class="r"><code>url&lt;-&quot;https://raw.githubusercontent.com/WojciechMisiura/rr_project/main/Walmart_Store_sales.csv&quot;
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKVGhpcyBpcyBhbiBbUiBNYXJrZG93bl0oaHR0cDovL3JtYXJrZG93bi5yc3R1ZGlvLmNvbSkgTm90ZWJvb2suIFdoZW4geW91IGV4ZWN1dGUgY29kZSB3aXRoaW4gdGhlIG5vdGVib29rLCB0aGUgcmVzdWx0cyBhcHBlYXIgYmVuZWF0aCB0aGUgY29kZS4gCgpUcnkgZXhlY3V0aW5nIHRoaXMgY2h1bmsgYnkgY2xpY2tpbmcgdGhlICpSdW4qIGJ1dHRvbiB3aXRoaW4gdGhlIGNodW5rIG9yIGJ5IHBsYWNpbmcgeW91ciBjdXJzb3IgaW5zaWRlIGl0IGFuZCBwcmVzc2luZyAqQ21kK1NoaWZ0K0VudGVyKi4gCgpgYGB7cn0KcGxvdChjYXJzKQpgYGAKCkFkZCBhIG5ldyBjaHVuayBieSBjbGlja2luZyB0aGUgKkluc2VydCBDaHVuayogYnV0dG9uIG9uIHRoZSB0b29sYmFyIG9yIGJ5IHByZXNzaW5nICpDbWQrT3B0aW9uK0kqLgoKV2hlbiB5b3Ugc2F2ZSB0aGUgbm90ZWJvb2ssIGFuIEhUTUwgZmlsZSBjb250YWluaW5nIHRoZSBjb2RlIGFuZCBvdXRwdXQgd2lsbCBiZSBzYXZlZCBhbG9uZ3NpZGUgaXQgKGNsaWNrIHRoZSAqUHJldmlldyogYnV0dG9uIG9yIHByZXNzICpDbWQrU2hpZnQrSyogdG8gcHJldmlldyB0aGUgSFRNTCBmaWxlKS4gCgpUaGUgcHJldmlldyBzaG93cyB5b3UgYSByZW5kZXJlZCBIVE1MIGNvcHkgb2YgdGhlIGNvbnRlbnRzIG9mIHRoZSBlZGl0b3IuIENvbnNlcXVlbnRseSwgdW5saWtlICpLbml0KiwgKlByZXZpZXcqIGRvZXMgbm90IHJ1biBhbnkgUiBjb2RlIGNodW5rcy4gSW5zdGVhZCwgdGhlIG91dHB1dCBvZiB0aGUgY2h1bmsgd2hlbiBpdCB3YXMgbGFzdCBydW4gaW4gdGhlIGVkaXRvciBpcyBkaXNwbGF5ZWQuCgo=</div>
+data&lt;-read_csv(url)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiYGN1cmxgIHBhY2thZ2Ugbm90IGluc3RhbGxlZCwgZmFsbGluZyBiYWNrIHRvIHVzaW5nIGB1cmwoKWBSb3dzOiA2NDM1IENvbHVtbnM6IDjilIDilIAgQ29sdW1uIHNwZWNpZmljYXRpb24g4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAXG5EZWxpbWl0ZXI6IFwiLFwiXG5jaHIgKDEpOiBEYXRlXG5kYmwgKDcpOiBTdG9yZSwgV2Vla2x5X1NhbGVzLCBIb2xpZGF5X0ZsYWcsIFRlbXBlcmF0dXJlLCBGdWVsX1ByaWNlLCBDUEksIFVuZW1wbG95bWVudFxu4oS5IFVzZSBgc3BlYygpYCB0byByZXRyaWV2ZSB0aGUgZnVsbCBjb2x1bW4gc3BlY2lmaWNhdGlvbiBmb3IgdGhpcyBkYXRhLlxu4oS5IFNwZWNpZnkgdGhlIGNvbHVtbiB0eXBlcyBvciBzZXQgYHNob3dfY29sX3R5cGVzID0gRkFMU0VgIHRvIHF1aWV0IHRoaXMgbWVzc2FnZS5cbiJ9 -->
+<pre><code>`curl` package not installed, falling back to using `url()`Rows: 6435 Columns: 8── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Delimiter: &quot;,&quot;
+chr (1): Date
+dbl (7): Store, Weekly_Sales, Holiday_Flag, Temperature, Fuel_Price, CPI, Unemployment
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaGVhZChkYXRhKVxuYGBgIn0= -->
+<pre class="r"><code>head(data)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NiwibmNvbCI6OCwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI2IMOXIDgiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBd3R5aVREbWl1QmlZR0JnWm1CaEJwS3NRQ1lEYTJpSW02NEZBd01MRTVERHlNREN3QW1pSzREU3drQUdCeER6QVRHYi9RY0dNQ0NXQmdJQmtENm9nVndHcHJvR1JycEdCb1lHTUJGREl3d1JTM1FSSXpOMEVaQTV4aGptUUVXZ2JuVzBGRm4xTEMwdHpkR1M5Mm5CNHV0Y2poWXpEbWkzeXUxd05HM2FQNTNMdHREUmZHZlpPcEdxaDQ2bTMwMUJmSmcrbU1PUi9FQUlnUFU1dUtxRGpQTndjSFowQnpFY25MOXoyUUl0ZG5BUEFOcHVXK2pnN2dCVzdPRHpWRzVINE90V3VENld5U1Y3c3VwK09iQWsrVjc2dVBLUEE0dk1HZzVEdFpjT0xEVnZKMllVYlhCZ2hWaml3QnJHSWdGVUN0ZVhsU3dhZTJwYmtVTlcrdjViRDVQYUhMSXlIVmJNeWI3amtKVmwxYnpmNXFCRFZyWkozQ1BlNVE1Wk9YcFdMUGQ2NFBvVXpGd1huanJRVEN5TmxpaFk4eEp6VTR1aEVjc0JFd3d1eVM5S2hYSllYQkpMWUd5ZThOVFU3SnpLK09ERUhLQW1xSmhIZms1bVNtSmx2RnRPWWpwVWpEc2tOYmNndFNpeHBCUnVESmRiYVdwT2ZFQlJaakpNaE5rNXdCTm1SbWdlVUVOT2ZtVnVhbDRKbWdzNWkvTEw5V0N1NUFWaXBnWWc4Zi8vLzEvb1hrbk9TU3lHZVFVbXlKV1NXSktvbDFZRTFBL2svVVBUd3A1ZlVKS1pud2ZVeEFUS0dLeG9taG1MMEFUNFMvTkFMa25SVGM0b3pjdldOUUZaQUphR0FGNG9tdzJKelFHeGt1ay8xQ2hXcUZGc3FYbnBtWG13c0dETlNVeEt6WUZ5K0lBK0JudFlyNkFvRXhnZVVKOEFSWXYxU3ZKTEVtSHF1Skx6YzJBaVlMOHgvQU1BMVBJa2VROEVBQUE9In0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Store"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Date"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Weekly_Sales"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Holiday_Flag"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Temperature"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Fuel_Price"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["CPI"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["Unemployment"],"name":[8],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"05-02-2010","3":"1643691","4":"0","5":"42.31","6":"2.572","7":"211.0964","8":"8.106"},{"1":"1","2":"12-02-2010","3":"1641957","4":"1","5":"38.51","6":"2.548","7":"211.2422","8":"8.106"},{"1":"1","2":"19-02-2010","3":"1611968","4":"0","5":"39.93","6":"2.514","7":"211.2891","8":"8.106"},{"1":"1","2":"26-02-2010","3":"1409728","4":"0","5":"46.63","6":"2.561","7":"211.3196","8":"8.106"},{"1":"1","2":"05-03-2010","3":"1554807","4":"0","5":"46.50","6":"2.625","7":"211.3501","8":"8.106"},{"1":"1","2":"12-03-2010","3":"1439542","4":"0","5":"57.79","6":"2.667","7":"211.3806","8":"8.106"}],"options":{"columns":{"min":{},"max":[10],"total":[8]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKIyMgQ29udGV4dApBcyBwYXJ0IG9mIFJlcHJvZHVjaWJsZSBSZXNlYXJjaCBjb3Vyc2Ugd2hpY2ggaXMgTWFuZGF0b3J5IGNvdXJzZSBmb3IgMm5kIHllYXIgc3R1ZGVudHMgb2YgRGF0YSBTY2llbmNlIGFuZCBCdXNpbmVzcyBBbmFseXRpY3MsIHdlIGFyZSByZXByb2R1Y2luZyBhbHJlYWR5IGV4aXN0aW5nIHByb2plY3QuIAoKTGluayB0byB0aGUgcHJvamVjdDoKaHR0cHM6Ly93d3cua2FnZ2xlLmNvbS9jb2RlL2FsZmlhbnN5YWhhY2htYWQvd2FsbWFydC1zYWxlcy1hbmFseXNpcy1lZGEtYW5kLWVjb25vbWV0cmljcwoKIyNBbGwgcmVxdWlyZWQgbGlicmFyaWVzIHdpbGwgYmUgbGlzdGVkIGhlcmUKCmBgYHtyfQpsaWJyYXJ5KHJlYWRyKQpgYGAKCiMjRmlyc3Qgd2UgcmVhZCB0aGUgZGF0YXNldAoKYGBge3J9CnVybDwtImh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9Xb2pjaWVjaE1pc2l1cmEvcnJfcHJvamVjdC9tYWluL1dhbG1hcnRfU3RvcmVfc2FsZXMuY3N2IiAjYXMgd2UgYWxyZWFkeSBhZGRlZCBvdXIgZGF0YXNldCB0byBnaXRodWIsIHdlIHdpbGwgcmVhZCBkYXRhIGRpcmVjdGx5IGZyb20gZ2l0aHViCgpkYXRhPC1yZWFkX2Nzdih1cmwpCgpoZWFkKGRhdGEpCmBgYA==</div>
 
 
 
