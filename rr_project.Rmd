@@ -9,6 +9,13 @@ As part of Reproducible Research course which is Mandatory course for 2nd year s
 Link to the project:
 https://www.kaggle.com/code/alfiansyahachmad/walmart-sales-analysis-eda-and-econometrics
 
+## Description
+Walmart is an American multinational retail corporation that operates a chain of hypermarkets, discount department stores, and grocery stores from the United States, headquartered in Bentonville, Arkansas (Wikipedia).
+
+In Retail Industry, sales is the most important metric in their business model that make profit. On this reason, sales analysis will be a good way in determining business operation.
+
+In this below dataset We'll reproduce the wxisting analysis how Walmart Sales looks like (Trend and Seasonal) and explain wether available feature (macroeconomic condition) would be affecting it using Econometric Panel Regression (Fixed Effect and Random Effect).
+
 ##All required libraries will be listed here
 
 ```{r}
@@ -16,7 +23,16 @@ library(readr)
 library(dplyr)
 library(ggplot2)
 library(lubridate)
+library(zoo)
+
 ```
+
+##All required packages will be listed here
+
+```{r}
+install.packages("zoo")
+```
+
 
 ##First we read the dataset
 
@@ -26,6 +42,7 @@ url<-"https://raw.githubusercontent.com/WojciechMisiura/rr_project/main/Walmart_
 data<-read_csv(url)
 
 head(data)
+spec(data)
 ```
 
 ```{r}
@@ -86,9 +103,41 @@ data_sub <- data[, !(names(data) %in% c('Month', 'Year', 'Store'))]
 summary(data_sub)
 ```
 
+## A. Aggregate Time Series Analysis
+How is the Walmart aggregate sales looks like? Does this sales has seasonal component?
+
+
 ```{r}
 
+
+holiday_date <- as.Date(c('2010-02-12', '2010-09-10',
+                          '2010-11-26', '2010-12-31',
+                          '2011-02-11', '2011-09-09',
+                          '2011-11-25', '2011-12-30',
+                          '2012-02-10', '2012-09-07'))
+
+locate <- as.Date('2011-05-06')
+
+agg_sales <- aggregate(panel$Weekly_Sales, by = list(Date = panel$Date), FUN = sum)
+
+ggplot(agg_sales, aes(x = Date, y = x)) +
+  geom_line(color = "blue", size = 1, linetype = "solid") +
+  geom_line(data = transform(agg_sales, x = rollmean(x, k = 12, fill = NA)), 
+            aes(x = Date, y = x), color = "red", size = 1, linetype = "solid") +
+  geom_vline(xintercept = as.numeric(holiday_date), color = "red", alpha = 0.2, linetype = "dashed") +
+  labs(title = "Walmart Aggregate Sales Trend\n(In Thousand Dollars)",
+       x = "", y = "") +
+  theme_bw() +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1),
+        plot.title = element_text(hjust = 0.5))
+
+
+
 ```
+
+
 
 ```{r}
 
