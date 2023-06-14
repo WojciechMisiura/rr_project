@@ -1,6 +1,8 @@
 ---
 title: "R Notebook"
-output: html_notebook
+output:
+  html_document:
+    df_print: paged
 ---
 
 ## Context
@@ -25,8 +27,6 @@ library(ggplot2)
 library(lubridate)
 library(zoo)
 library(scales)
-library(tidyr)
-
 ```
 
 ##All required packages will be listed here
@@ -311,7 +311,37 @@ print(fig)
 
 Although Thanksgiving holiday on November has highest sales than the other holiday, December has the highest growth sales happening before Christmas in 2010 and 2011. It stated that in 2012, October become the highest MoM sales growth because we don't have sales data on December 2012.
 
+# Sales Panel Analysis by Store
 ```{r}
+sales_store <- panel %>%
+  group_by(Store) %>%
+  summarize(Weekly_Sales = sum(Weekly_Sales))
+
+sales_store <- sales_store %>%
+  arrange(Weekly_Sales) %>%
+  mutate(Store = factor(Store, levels = unique(Store)))
+
+ggplot(sales_store, aes(x = Store, y = Weekly_Sales, fill = Store)) +
+  geom_bar(stat = "identity", width = 1, color = "black") +
+  labs(title = "Walmart Aggregate Sales by Store (In Thousand Dollars)",
+       x = "Store", y = NULL, caption = "") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 0, hjust = 1, vjust = 0.5, size = 5, color = "black"),
+        axis.text.y = element_text(size = 5, color = "black"),
+        axis.title = element_text(size = 12, color = "black", face = "bold"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        plot.title = element_text(size = 12, color = "black", face = "bold", hjust = 0.5),
+        plot.caption = element_text(size = 12, color = "gray50", hjust = 1),
+        plot.background = element_rect(fill = "white"),
+        panel.border = element_rect(color = "black", fill = NA),
+        axis.line = element_line(color = "black"),
+        plot.margin = margin(25, 25, 25, 25)) +
+  scale_y_continuous(labels = comma, expand = expansion(mult = c(0, 0.1))) +
+  geom_text(x = 7, y = 320000, label = "Walmart Aggregate Sales by Store\n(In Thousand Dollars)",
+            size = 2, family = "serif", color = "black", hjust = 0.5) +
+  geom_text(x = 2.5, y = 230000, label = "Walmart Store that has higher sales in the period is Store 20 followed by Store 4 and 14.\nThe insight stops here because we don't know exactly where the store location is.\nBut we will define how the trend is behind it.",
+            size = 2, family = "serif", color = "black", hjust = 0)
 
 ```
 
