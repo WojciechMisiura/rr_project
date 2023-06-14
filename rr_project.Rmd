@@ -24,6 +24,8 @@ library(dplyr)
 library(ggplot2)
 library(lubridate)
 library(zoo)
+library(scales)
+library(tidyr)
 
 ```
 
@@ -31,6 +33,8 @@ library(zoo)
 
 ```{r}
 install.packages("zoo")
+install.packages("scales")
+
 ```
 
 
@@ -105,10 +109,10 @@ summary(data_sub)
 
 ## A. Aggregate Time Series Analysis
 How is the Walmart aggregate sales looks like? Does this sales has seasonal component?
+## Below is the Aggregate Sales for the whole Walmart Store
 
 
 ```{r}
-
 
 holiday_date <- as.Date(c('2010-02-12', '2010-09-10',
                           '2010-11-26', '2010-12-31',
@@ -121,19 +125,193 @@ locate <- as.Date('2011-05-06')
 agg_sales <- aggregate(panel$Weekly_Sales, by = list(Date = panel$Date), FUN = sum)
 
 ggplot(agg_sales, aes(x = Date, y = x)) +
-  geom_line(color = "blue", size = 1, linetype = "solid") +
+  geom_line(color = "steelblue", size = 1) +
   geom_line(data = transform(agg_sales, x = rollmean(x, k = 12, fill = NA)), 
-            aes(x = Date, y = x), color = "red", size = 1, linetype = "solid") +
-  geom_vline(xintercept = as.numeric(holiday_date), color = "red", alpha = 0.2, linetype = "dashed") +
+            aes(x = Date, y = x), color = "firebrick", size = 1) +
+  geom_vline(xintercept = as.numeric(holiday_date), color = "darkred", alpha = 0.2, linetype = "dashed") +
   labs(title = "Walmart Aggregate Sales Trend\n(In Thousand Dollars)",
-       x = "", y = "") +
+       x = NULL, y = NULL) +
   theme_bw() +
-  theme(panel.grid.major = element_blank(),
+  theme(plot.title = element_text(size = 20, face = "bold", hjust = 0.5),
+        axis.text.x = element_text(angle = 45, vjust = 0.5, hjust = 1),
+        axis.text.y = element_text(size = 12),
+        axis.title = element_text(size = 14),
+        panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
-        axis.text.x = element_text(angle = 45, hjust = 1),
-        plot.title = element_text(hjust = 0.5))
+        panel.border = element_blank(),
+        panel.background = element_rect(fill = "white"),
+        plot.margin = margin(20, 20, 20, 20, "pt"))
 
 
+
+
+```
+
+The graph tell us that this data contain seasonal component on holiday date (red line). Walmart sales seems rapidly increased when holiday date taking place. But in the other side (non-holiday date), sales tend to be in stagnant position. It means we have to be careful interpreting sales volume (Growth sales would be good metrics). Before that, next we'll discuss more little depth which holiday contribute more in Walmart sales aggregately.
+
+
+## Below are the detail about sales in holiday, are thanksgiving holiday have highest sales?
+
+
+```{r}
+
+super_bowl <- c('2010-02-12', '2011-02-11', '2012-02-10')
+labour_day <- c('2010-09-10', '2011-09-09', '2012-09-07')
+thanksgiving <- c('2010-11-26', '2011-11-25', '2012-11-23')
+christmas <- c('2010-12-31', '2011-12-30', '2012-12-28')
+
+super_bowl_sales <- sum(data$Weekly_Sales[data$Date == '2011-02-11'])
+labour_day_sales <- sum(data$Weekly_Sales[data$Date == '2011-09-09'])
+thanksgiving_sales <- sum(data$Weekly_Sales[data$Date == '2011-11-25'])
+christmas_sales <- sum(data$Weekly_Sales[data$Date == '2011-12-30'])
+
+holiday_sales <- data.frame(
+  Holiday = c("Super Bowl", "Labour Day", "Thanksgiving", "Christmas"),
+  Sales = c(super_bowl_sales, labour_day_sales, thanksgiving_sales, christmas_sales)
+)
+
+holiday_sales$Sales <- round(holiday_sales$Sales, 2)
+
+ggplot(holiday_sales, aes(x = Holiday, y = Sales, fill = Holiday)) +
+  geom_bar(stat = "identity", width = 0.5, color = "black") +
+  geom_text(aes(label = paste0(Sales, "k")), vjust = -0.5, size = 8, fontface = "bold", color = "white") +
+  labs(title = "Are Thanksgiving Holidays the Highest Sales Contributors?",
+       x = NULL, y = NULL) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 0.5, size = 12, color = "black"),
+        axis.text.y = element_text(size = 12, color = "black"),
+        axis.title = element_text(size = 14, color = "black", face = "bold"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        plot.title = element_text(size = 18, color = "black", face = "bold", hjust = 0.5),
+        plot.caption = element_text(size = 10, color = "gray50", hjust = 1),
+        plot.background = element_rect(fill = "white"),
+        panel.border = element_rect(color = "black", fill = NA),
+        axis.line = element_line(color = "black"),
+        plot.margin = margin(50, 50, 30, 30)) +
+  scale_y_continuous(labels = comma, expand = expansion(mult = c(0, 0.1))) +
+  coord_cartesian(ylim = c(0, max(holiday_sales$Sales) * 1.2)) +
+  annotate("text", x = holiday_sales$Holiday, y = holiday_sales$Sales,
+           label = paste0(holiday_sales$Sales, "k"), vjust = -0.5, size = 6, fontface = "bold", color = "white") +
+  geom_hline(yintercept = mean(holiday_sales$Sales), linetype = "dashed", color = "gray40", size = 1) +
+  geom_point(aes(x = holiday_sales$Holiday, y = holiday_sales$Sales),
+             shape = 21, fill = "white", color = "black", size = 4) +
+  guides(fill = "none")
+
+
+
+
+```
+
+```{r}
+
+pivot_table <- panel %>%
+  group_by(Date) %>%
+  summarize(Weekly_Sales = sum(Weekly_Sales),
+            Temperature = mean(Temperature),
+            Fuel_Price = mean(Fuel_Price),
+            CPI = mean(CPI),
+            Unemployment = mean(Unemployment)) %>%
+  tidyr::separate(Date, into = c("Year", "Month", "Day"), sep = "-") %>%
+  select(-Day)
+
+head(pivot_table)
+
+
+```
+
+
+```{r}
+
+pairplot <- pivot_table[, !(names(pivot_table) %in% c("Month", "Year"))]
+pairs(pairplot)
+
+
+```
+
+```{r}
+cor_matrix <- cor(pivot_table[, !(names(pivot_table) %in% c("Month", "Year"))])
+cor_matrix
+
+
+
+```
+It seems that sales have less correlation with macroeconomic condition. Possible reason of this realtionship that because we use weekly data and macroeconomic variables like CPI, unemployment, fuel price have slow/rigid change in the short run.
+
+
+```{r}
+
+
+growth_df <- panel %>%
+  select(Date, Weekly_Sales) %>%
+  group_by(Date = as.yearmon(Date)) %>%
+  summarize(Weekly_Sales = sum(Weekly_Sales)) %>%
+  ungroup() %>%
+  mutate(Rolling_Month = lag(Weekly_Sales),
+         Growth_MoM = round((Weekly_Sales - Rolling_Month) / Rolling_Month * 100, 2))
+
+growth_df <- growth_df %>%
+  mutate(growth_df = lead(growth_df)) %>%
+  select(-c(3, 4))
+
+growth_df$Year <- year(growth_df$Date)
+growth_df$Month <- month(growth_df$Date)
+
+super_bowl <- c('2010-02-28', '2011-02-28', '2012-02-28')
+labour_day <- c('2010-09-30', '2011-09-30', '2012-09-30')
+thanksgiving <- c('2010-11-30', '2011-11-30', '2012-11-30')
+christmas <- c('2010-12-31', '2011-12-31', '2012-12-31')
+
+g2010 <- growth_df %>%
+  filter(Year == 2010) %>%
+  summarize(Month = Month[which.max(growth_df$Growth_MoM)], Growth_MoM = max(growth_df$Growth_MoM))
+
+g2011 <- growth_df %>%
+  filter(Year == 2011) %>%
+  summarize(Month = Month[which.max(growth_df$Growth_MoM)], Growth_MoM = max(growth_df$Growth_MoM))
+
+g2012 <- growth_df %>%
+  filter(Year == 2012) %>%
+  summarize(Month = Month[which.max(growth_df$Growth_MoM)], Growth_MoM = max(growth_df$Growth_MoM))
+
+
+
+
+
+# Create a data frame with the text labels
+text_labels <- data.frame(
+  x = c(0.7, 0.2, 0.2, 0.75, 0.75, 0.75, 1.3, 1.3, 1.3),
+  y = c(0.85, 0.5, 0.3, 0.5, 0.3, 0.1, 0.5, 0.3, 0.1),
+  label = c("Highest Sales MoM Growth", "December", "42.35%", "December", "37.07%", "2011", "October", "27.46%", "2012"),
+  #color = c("black", "blue", "gray", "blue", "gray", "gray", "blue", "gray", "gray"),
+  #size = c(6, 12, 8, 12, 8, 8, 12, 8, 8),
+  fontface = c("bold", "bold", "bold", "bold", "bold", "bold", "bold", "bold", "bold"),
+  family = c("sans", "mono", "mono", "mono", "mono", "mono", "mono", "mono", "mono"),
+  vjust = c(0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
+  hjust = c(0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5)
+)
+
+# Create the plot
+fig <- ggplot() +
+  theme_void() +
+  theme(plot.margin = margin(0, 0, 0, 0, "cm"))
+
+# Add text elements to the plot
+fig <- fig +
+  geom_text(data = text_labels, aes(x = x, y = y, label = label,  
+                                    fontface = fontface, family = family, vjust = vjust, hjust = hjust))
+
+# Show the plot
+print(fig)
+
+
+
+
+```
+
+Although Thanksgiving holiday on November has highest sales than the other holiday, December has the highest growth sales happening before Christmas in 2010 and 2011. It stated that in 2012, October become the highest MoM sales growth because we don't have sales data on December 2012.
+
+```{r}
 
 ```
 
@@ -143,14 +321,4 @@ ggplot(agg_sales, aes(x = Date, y = x)) +
 
 ```
 
-```{r}
 
-```
-
-```{r}
-
-```
-
-```{r}
-
-```
