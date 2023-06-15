@@ -27,6 +27,11 @@ library(ggplot2)
 library(lubridate)
 library(zoo)
 library(scales)
+library(cowplot)
+library(patchwork)
+
+
+
 ```
 
 ##All required packages will be listed here
@@ -34,8 +39,21 @@ library(scales)
 ```{r}
 install.packages("zoo")
 install.packages("scales")
+install.packages("cowplot")
+install.packages("lubridate")
+```
+
+
+```{r}
+
 
 ```
+
+```{r}
+install.packages("patchwork")
+
+```
+
 
 
 ##First we read the dataset
@@ -312,6 +330,7 @@ print(fig)
 Although Thanksgiving holiday on November has highest sales than the other holiday, December has the highest growth sales happening before Christmas in 2010 and 2011. It stated that in 2012, October become the highest MoM sales growth because we don't have sales data on December 2012.
 
 # Sales Panel Analysis by Store
+## Which store perform better?
 ```{r}
 sales_store <- panel %>%
   group_by(Store) %>%
@@ -349,6 +368,273 @@ ggplot(sales_store, aes(x = Store, y = Weekly_Sales, fill = Store)) +
 
 ```{r}
 
+
+# Highest Store
+store14 <- panel[panel$Store == 14, c("Date", "Weekly_Sales")]
+store14$roll <- dplyr::lag(store14$Weekly_Sales)
+store14$weekly_growth <- round((store14$Weekly_Sales - store14$roll) / store14$roll * 100, 2)
+store14 <- dplyr::lead(store14)
+
+store4 <- panel[panel$Store == 4, c("Date", "Weekly_Sales")]
+store4$roll <- dplyr::lag(store4$Weekly_Sales)
+store4$weekly_growth <- round((store4$Weekly_Sales - store4$roll) / store4$roll * 100, 2)
+store4 <- dplyr::lead(store4)
+
+store20 <- panel[panel$Store == 20, c("Date", "Weekly_Sales")]
+store20$roll <- dplyr::lag(store20$Weekly_Sales)
+store20$weekly_growth <- round((store20$Weekly_Sales - store20$roll) / store20$roll * 100, 2)
+store20 <- dplyr::lead(store20)
+
+# Lowest Store
+store33 <- panel[panel$Store == 33, c("Date", "Weekly_Sales")]
+store33$roll <- dplyr::lag(store33$Weekly_Sales)
+store33$weekly_growth <- round((store33$Weekly_Sales - store33$roll) / store33$roll * 100, 2)
+store33 <- dplyr::lead(store33)
+
+store44 <- panel[panel$Store == 44, c("Date", "Weekly_Sales")]
+store44$roll <- dplyr::lag(store44$Weekly_Sales)
+store44$weekly_growth <- round((store44$Weekly_Sales - store44$roll) / store44$roll * 100, 2)
+store44 <- dplyr::lead(store44)
+
+store5 <- panel[panel$Store == 5, c("Date", "Weekly_Sales")]
+store5$roll <- dplyr::lag(store5$Weekly_Sales)
+store5$weekly_growth <- round((store5$Weekly_Sales - store5$roll) / store5$roll * 100, 2)
+store5 <- dplyr::lead(store5)
+
+# Define locate1
+locate1 <- as.Date('2011-02-01')
+
+# Create the first plot for top 3 stores
+plot_top <- ggplot() +
+  theme_minimal() +
+  theme(panel.grid = element_blank(), 
+        axis.text.y = element_text(color = "black"), 
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        plot.title = element_text(color = "black", size = 20, face = "bold", family = "serif"))
+
+plot_top <- plot_top +
+  geom_line(data = store14, aes(x = Date, y = weekly_growth, color = "Store 14"), size = 1) +
+  geom_line(data = store4, aes(x = Date, y = weekly_growth, color = "Store 4"), size = 1) +
+  geom_line(data = store20, aes(x = Date, y = weekly_growth, color = "Store 20"), size = 1) +
+  scale_color_manual(values = c("blue", "red", "green"),
+                     labels = c("Store 14", "Store 4", "Store 20")) +
+  labs(title = "Top 3 Sales Stores Growth Trend",
+       y = "Weekly Growth (%)") +
+  theme(legend.position = "bottom")
+
+plot_top <- plot_top +
+  annotate("text", x = max(store14$Date), y = store14$weekly_growth[length(store14$weekly_growth)],
+           label = paste0("Latest: ", store14$weekly_growth[length(store14$weekly_growth)]),
+           color = "black", size = 6, fontface = "bold", family = "serif", hjust = 1, vjust = -0.5) +
+  annotate("text", x = max(store4$Date), y = store4$weekly_growth[length(store4$weekly_growth)],
+           label = paste0("Latest: ", store4$weekly_growth[length(store4$weekly_growth)]),
+           color = "black", size = 6, fontface = "bold", family = "serif", hjust = 1, vjust = -0.5) +
+  annotate("text", x = max(store20$Date), y = store20$weekly_growth[length(store20$weekly_growth)],
+           label = paste0("Latest: ", store20$weekly_growth[length(store20$weekly_growth)]),
+           color = "black", size = 6, fontface = "bold", family = "serif", hjust = 1, vjust = -0.5) +
+  scale_x_date(labels = date_format("%Y-%m"), breaks = date_breaks("3 months"))
+
+# Create the second plot for bottom 3 stores
+plot_bottom <- ggplot() +
+  theme_minimal() +
+  theme(panel.grid = element_blank(), 
+        axis.text.y = element_text(color = "black"), 
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        plot.title = element_text(color = "black", size = 20, face = "bold", family = "serif"))
+
+plot_bottom <- plot_bottom +
+  geom_line(data = store33, aes(x = Date, y = weekly_growth, color = "Store 33"), size = 1) +
+  geom_line(data = store44, aes(x = Date, y = weekly_growth, color = "Store 44"), size = 1) +
+  geom_line(data = store5, aes(x = Date, y = weekly_growth, color = "Store 5"), size = 1) +
+  scale_color_manual(values = c("purple", "orange", "brown"),
+                     labels = c("Store 33", "Store 44", "Store 5")) +
+  labs(title = "Bottom 3 Sales Stores Growth Trend",
+       x = "Date",
+       y = "Weekly Growth (%)") +
+  theme(legend.position = "bottom")
+
+plot_bottom <- plot_bottom +
+  annotate("text", x = max(store33$Date), y = store33$weekly_growth[length(store33$weekly_growth)],
+           label = paste0("Latest: ", store33$weekly_growth[length(store33$weekly_growth)]),
+           color = "black", size = 6, fontface = "bold", family = "serif", hjust = 1, vjust = -0.5) +
+  annotate("text", x = max(store44$Date), y = store44$weekly_growth[length(store44$weekly_growth)],
+           label = paste0("Latest: ", store44$weekly_growth[length(store44$weekly_growth)]),
+           color = "black", size = 6, fontface = "bold", family = "serif", hjust = 1, vjust = -0.5) +
+  annotate("text", x = max(store5$Date), y = store5$weekly_growth[length(store5$weekly_growth)],
+           label = paste0("Latest: ", store5$weekly_growth[length(store5$weekly_growth)]),
+           color = "black", size = 6, fontface = "bold", family = "serif", hjust = 1, vjust = -0.5) +
+  scale_x_date(labels = date_format("%Y-%m"), breaks = date_breaks("3 months"))
+
+# Arrange the plots
+plot_combined <- cowplot::plot_grid(plot_top, plot_bottom, ncol = 1, align = "v")
+
+# Display the combined plot
+plot_combined
+
 ```
+
+
+Below is the analysis of 6 stores separately.
+```{r}
+
+# Create quarterly month labels
+quarterly_months <- data.frame(
+  Date = as.Date(c("2011-01-01", "2011-04-01", "2011-07-01", "2011-10-01")),
+  Label = c("Jan", "Apr", "Jul", "Oct")
+)
+
+# Create the plot for Store 14
+plot_store14 <- ggplot(store14, aes(x = Date, y = weekly_growth)) +
+  geom_line(color = "blue") +
+  labs(title = "Store 14 - Weekly Growth", x = "Date", y = "Weekly Growth") +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  scale_x_date(date_breaks = "3 months", date_labels = "%b")
+
+# Create the plot for Store 4
+plot_store4 <- ggplot(store4, aes(x = Date, y = weekly_growth)) +
+  geom_line(color = "red") +
+  labs(title = "Store 4 - Weekly Growth", x = "Date", y = "Weekly Growth") +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  scale_x_date(date_breaks = "3 months", date_labels = "%b")
+
+# Create the plot for Store 20
+plot_store20 <- ggplot(store20, aes(x = Date, y = weekly_growth)) +
+  geom_line(color = "green") +
+  labs(title = "Store 20 - Weekly Growth", x = "Date", y = "Weekly Growth") +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  scale_x_date(date_breaks = "3 months", date_labels = "%b")
+
+# Create the plot for Store 33
+plot_store33 <- ggplot(store33, aes(x = Date, y = weekly_growth)) +
+  geom_line(color = "purple") +
+  labs(title = "Store 33 - Weekly Growth", x = "Date", y = "Weekly Growth") +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  scale_x_date(date_breaks = "3 months", date_labels = "%b")
+
+# Create the plot for Store 44
+plot_store44 <- ggplot(store44, aes(x = Date, y = weekly_growth)) +
+  geom_line(color = "orange") +
+  labs(title = "Store 44 - Weekly Growth", x = "Date", y = "Weekly Growth") +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  scale_x_date(date_breaks = "3 months", date_labels = "%b")
+
+# Create the plot for Store 5
+plot_store5 <- ggplot(store5, aes(x = Date, y = weekly_growth)) +
+  geom_line(color = "gray") +
+  labs(title = "Store 5 - Weekly Growth", x = "Date", y = "Weekly Growth") +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  scale_x_date(date_breaks = "3 months", date_labels = "%b")
+
+# Combine the plots using the '+' operator from the patchwork package
+combined_plot <- plot_store14 + plot_store4 + plot_store20 + plot_store33 + plot_store44 + plot_store5 +
+  plot_layout(ncol = 1)
+
+# Annotate quarterly month labels
+combined_plot <- combined_plot +
+  annotate(
+    "text",
+    x = quarterly_months$Date,
+    y = -10,
+    label = quarterly_months$Label,
+    color = "gray",
+    size = 4,
+    hjust = 0.5,
+    vjust = 0.5
+  )
+
+# Show the combined plot
+combined_plot
+
+
+
+
+```
+
+
+
+
+```{r}
+
+# Sort sales_store dataframe by Weekly_Sales in descending order
+sales_store <- sales_store[order(-sales_store$Weekly_Sales),]
+
+# Get the top 4 stores
+store_list <- head(sales_store$Store, 4)
+
+# Calculate the sum of Weekly_Sales by Store and Year
+sales <- panel %>%
+  group_by(Store, Year) %>%
+  summarize(Weekly_Sales = sum(Weekly_Sales)) %>%
+  ungroup()
+
+# Calculate the mean Temperature by Store and Year
+temp <- panel %>%
+  group_by(Store, Year) %>%
+  summarize(Temperature = mean(Temperature)) %>%
+  ungroup()
+
+# Create a data frame for plotting
+plot_data <- data.frame(sales, temp)
+
+# Filter the data for the selected stores
+plot_data <- plot_data %>% filter(Store %in% store_list)
+
+# Create the plot
+plot <- ggplot(plot_data, aes(x = Weekly_Sales, y = Temperature, color = as.factor(Store))) +
+  geom_point() +
+  geom_smooth(aes(group = Store), method = "lm", se = FALSE) +
+  geom_ribbon(aes(ymin = fitted(lm(Temperature ~ Weekly_Sales, data = plot_data)) - 2,
+                  ymax = fitted(lm(Temperature ~ Weekly_Sales, data = plot_data)) + 2),
+              alpha = 0.4) +
+  labs(x = "Weekly Sales", y = "Temperature") +
+  theme_minimal()
+
+# Remove top and right spines
+plot <- plot + theme(panel.border = element_blank(),
+                     panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(),
+                     axis.line = element_line(color = "black"))
+
+# Add legend with custom labels and colors
+plot <- plot + scale_color_manual(values = c("red", "green", "blue", "purple"),
+                                  breaks = store_list,
+                                  labels = paste0("Store ", store_list))
+
+# Add title text
+plot <- plot + annotate("text", x = 90000, y = 150,
+                        label = "Sales vs Temperature Relationship",
+                        color = "black", size = 4, fontface = "bold")
+
+# Adjust plot layout
+plot <- plot + theme(plot.margin = margin(1, 1, 1, 1, "cm"))
+
+# Show the plot
+plot
+
+```
+
+Here we test the relationship between temperature and sales since this variable has the highest correlation among all feature. As we see that the slope (relative change in dependent variable if independent variable change) are small in all highest sales top 4 store
+
+
+## Econometrics Analysis: Does Macroeconomic Variable Affect Weekly Sales?
+
+
+```{r}
+
+```
+
+
+
+
+
+
 
 
