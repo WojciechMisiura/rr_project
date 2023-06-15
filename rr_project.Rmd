@@ -29,8 +29,8 @@ library(zoo)
 library(scales)
 library(cowplot)
 library(patchwork)
-
-
+library(plm)
+library(lmtest)
 
 ```
 
@@ -626,15 +626,70 @@ Here we test the relationship between temperature and sales since this variable 
 
 ## Econometrics Analysis: Does Macroeconomic Variable Affect Weekly Sales?
 
+Econometrics is a tool that economist used for knowing how the causal relationship between dependent (target) variable and independent (feature matrix) variable. There are three types of data: 1.) Cross-section, 2.) Time Series, 3.) Pooled Data (Cross-section and Time Series). 
 
+Basically, there are three types of regression for panel data:
+1. **PooledOLS** can be described as simple OLS (Ordinary Least Squared) model that is performed on panel data. It ignores time and individual characteristics and focuses only on dependencies between the individuums
+2. **Fixed-Effects (FE) Model**: The FE-model determines individual effects of unobserved, independent variables as constant (“fix“) over time
+3. **Random-Effects (RE) Model**: RE-models determine individual effects of unobserved, independent variables as random variables over time. They are able to “switch” between OLS and FE and hence, can focus on both, dependencies between and within individuals
+
+Here we will run the data into all the method.
+
+```{r}
+panel_data <- panel %>%
+  select(-Month, -Year, -Holiday_Flag) %>%
+  arrange(Store, Date) %>%
+  mutate(Date = as.Date(Date))
+
+panel_data
+
+```
+```{r}
+
+# Building dependent and independent variables
+independent <- cbind(1, panel_data$Temperature, panel_data$Fuel_Price, panel_data$CPI, panel_data$Unemployment)
+dependent <- panel_data$Weekly_Sales
+
+# Fitting variables into panel OLS method
+model <- plm(dependent ~ independent, data = panel_data, model = "pooling")
+pooledOLS_res <- vcovHC(model, cluster = "group")
+
+residuals <- model$residuals
+
+
+```
+Firstly, we run data into pooled OLS regression method. There are 3 classical assumptions that have to be fulfilled. Two of them can help us in choosing between PooledOLS and Fixed Effect and Random Effect Model. These are *heteroskedasticity* and *autocorrelation*. If these two assumptions cant be fulfilled by PooledOLS, then Fixed Effect or Random Effect might be more suitable.
+```{r}
+
+# Create pooled data by concatenating panel_data and residuals
+pooled_data <- cbind(panel_data, residuals)
+pooled_data <- pooled_data[, !colnames(pooled_data) %in% c("Date")]
+pooled_data <- na.omit(pooled_data)
+
+# Perform Breusch-Pagan test for heteroskedasticity
+bp_test <- bptest(residuals ~ independent, data = pooled_data)
+result_auto <- c(bp_test$statistic, bp_test$p.value, bp_test$parameter[1], bp_test$parameter[2])
+names(result_auto) <- c("LM-Stat", "LM p-val", "F-Stat", "F p-val")
+
+print(result_auto)
+
+```
+If p value less than alpha (0.05), then there is no heteroskedasticity vice versa. Because p value is 3.53 that more than 0.05, so there is violation in heteroskedasticity.
+```{r}
+
+# Calculate Durbin-Watson statistic
+durbin_watson_test <- dwtest(dependent ~ Temperature + Fuel_Price + CPI + Unemployment, data = pooled_data)
+
+print(durbin_watson_test)
+
+```
+If p value less than alpha (0.05), then there is no autocorrelation vice versa. Because p value is 3.53 that more than 0.05, so there is violation in autocorrelation.
+
+Well here we will use Fixed Effect and Random Effect method.
 ```{r}
 
 ```
 
+```{r}
 
-
-
-
-
-
-
+```
