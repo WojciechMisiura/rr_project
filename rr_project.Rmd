@@ -728,7 +728,13 @@ robust_se <- sqrt(diag(vcovHC(model, type = "HC3", cluster = "group")))
 print(robust_se)
 print(model)
 ```
+These are the estimated coefficients from your random effects model.
 
+For each unit increase in Temperature (independent2), the Weekly_Sales is expected to decrease by about 1.031 units, on average, assuming other factors remain constant.
+For each unit increase in Fuel_Price (independent3), the Weekly_Sales is expected to decrease by about 41.749 units, on average, assuming other factors remain constant.
+For each unit increase in CPI (independent4), the Weekly_Sales is expected to increase by about 2.476 units, on average, assuming other factors remain constant.
+For each unit increase in Unemployment (independent5), the Weekly_Sales is expected to decrease by about 23.832 units, on average, assuming other factors remain constant.
+    
 ```{r}
 
 ```
