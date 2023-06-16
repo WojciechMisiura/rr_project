@@ -678,7 +678,7 @@ durbin_watson_test <- dwtest(dependent ~ Temperature + Fuel_Price + CPI + Unempl
 print(durbin_watson_test)
 
 ```
-If p value less than alpha (0.05), then there is no autocorrelation vice versa. Because p value is 3.53 that more than 0.05, so there is violation in autocorrelation.
+If p value less than alpha (0.05), then there is no autocorrelation vice versa. Because p value is 3.53 that is more than 0.05, so there is violation in autocorrelation.
 
 Well here we will use Fixed Effect and Random Effect method.
 ```{r}
@@ -733,7 +733,7 @@ breusch_pagan_test <- plmtest(pooled_model, type = "bp")
 # Print the results
 print(breusch_pagan_test)
 ```
-As p-value is effectively zero, we reject the null hypothesis of the test. This suggests that there is evidence of random effects in our data. Reandom effects model may be more appropriate than a simple pooled OLS model.
+As p-value is effectively zero, we reject the null hypothesis of the test. This suggests that there is evidence of random effects in our data. Random effects model may be more appropriate than a simple pooled OLS model.
 
 
 ```{r}
@@ -782,6 +782,17 @@ ggplot() +
 
 ```
 
+Challenges:
+
+There are several challenges when using fixed effects model for this analysis. Some of them are:
+
+Limited variability: Fixed effects models rely on within-group variation to identify the effects of the independent variables. If there is limited variability in the dependent variable or the independent variables within each individual or entity, it can reduce the efficiency and power of the estimates.
+
+Collinearity: Fixed effects models can suffer from collinearity issues, especially when there are high levels of correlation among the independent variables. Collinearity can make it difficult to separate the effects of individual-specific characteristics from the effects of the independent variables, leading to imprecise estimates and inflated standard errors.
+
+Endogeneity: Endogeneity can still be a concern in fixed effects models. If there are time-varying omitted variables that are correlated with both the independent variables and the error term, it can lead to endogeneity. This can result in biased and inconsistent estimates.
+
+Due to these challenges it is necessary to consider that the final estimates may not represent real world scenario and we should be cautious in relying too much on it.
 ```{r}
 
 ```
