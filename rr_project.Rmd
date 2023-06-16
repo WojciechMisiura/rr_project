@@ -18,39 +18,20 @@ In Retail Industry, sales is the most important metric in their business model t
 
 In this below dataset We'll reproduce the wxisting analysis how Walmart Sales looks like (Trend and Seasonal) and explain wether available feature (macroeconomic condition) would be affecting it using Econometric Panel Regression (Fixed Effect and Random Effect).
 
-##All required libraries will be listed here
+##All required libraries will be listed here. If a user does not have a required library, it will be automatically downloaded
 
-```{r}
-library(readr)
-library(dplyr)
-library(ggplot2)
-library(lubridate)
-library(zoo)
-library(scales)
-library(cowplot)
-library(patchwork)
-library(plm)
-library(lmtest)
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
 
-```
+packages <- c("readr", "dplyr", "ggplot2", "lubridate", "zoo", "scales", "cowplot", "patchwork", "plm", "lmtest")
 
-##All required packages will be listed here
+check_and_install <- function(pkg){
+  if(!require(pkg, character.only = TRUE)){
+    install.packages(pkg, dependencies = TRUE)
+    library(pkg, character.only = TRUE)
+  }
+}
 
-```{r}
-install.packages("zoo")
-install.packages("scales")
-install.packages("cowplot")
-install.packages("lubridate")
-```
-
-
-```{r}
-
-
-```
-
-```{r}
-install.packages("patchwork")
+sapply(packages, check_and_install)
 
 ```
 
@@ -269,8 +250,8 @@ growth_df <- panel %>%
          Growth_MoM = round((Weekly_Sales - Rolling_Month) / Rolling_Month * 100, 2))
 
 growth_df <- growth_df %>%
-  mutate(growth_df = lead(growth_df)) %>%
-  select(-c(3, 4))
+  dplyr::mutate(growth_df = dplyr::lead(growth_df)) %>%
+  dplyr::select(-c(3, 4))
 
 growth_df$Year <- year(growth_df$Date)
 growth_df$Month <- month(growth_df$Date)
@@ -686,6 +667,48 @@ print(durbin_watson_test)
 If p value less than alpha (0.05), then there is no autocorrelation vice versa. Because p value is 3.53 that more than 0.05, so there is violation in autocorrelation.
 
 Well here we will use Fixed Effect and Random Effect method.
+```{r}
+
+# Fitting fixed effects model
+fixed_effects_model <- plm(dependent ~ independent, data = panel_data, model = "within")
+
+# Summarizing model
+summary(fixed_effects_model)
+
+
+```
+Random effects
+```{r}
+# Fitting random effects model
+random_effects_model <- plm(dependent ~ independent, data = panel_data, model = "random")
+
+# Summarizing model
+summary(random_effects_model)
+
+```
+
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
 ```{r}
 
 ```
