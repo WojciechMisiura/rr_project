@@ -689,20 +689,44 @@ summary(random_effects_model)
 
 
 ```{r}
+hausman_test <- phtest(fixed_effects_model, random_effects_model)
 
+print(hausman_test)
 ```
+As p-value is 0.3936, our p-value is greater than 0.05 so we do not reject the null hypothesis. This means that both the fixed effects model and the random effects model are consistent. 
 
 ```{r}
 
+#Wooldridge Test for Autocorrelation
+wooldridge_test_re <- pbgtest(random_effects_model)
+
+print(wooldridge_test_re)
+
+wooldridge_test_fe <- pbgtest(fixed_effects_model)
+
+print(wooldridge_test_fe)
+
+
 ```
+In this test, p-value is effectively 0 which means that we reject the null hypothesis. 
+
+```{r}
+#Breusch-Pagan Lagrange Multiplier Test
+pooled_model <- plm(dependent ~ independent, data = panel_data, model = "pooling")
+
+breusch_pagan_test <- plmtest(pooled_model, type = "bp")
+
+# Print the results
+print(breusch_pagan_test)
+```
+As p-value is effectively zero, we reject the null hypothesis of the test. This suggests that there is evidence of random effects in our data. Reandom effects model may be more appropriate than a simple pooled OLS model.
 
 
 ```{r}
-
-```
-
-```{r}
-
+model <- plm(dependent ~ independent, data = panel_data, model = "random")
+robust_se <- sqrt(diag(vcovHC(model, type = "HC3", cluster = "group")))
+print(robust_se)
+print(model)
 ```
 
 ```{r}
