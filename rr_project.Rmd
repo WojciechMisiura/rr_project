@@ -22,16 +22,30 @@ In this below dataset We'll reproduce the wxisting analysis how Walmart Sales lo
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 
-packages <- c("readr", "dplyr", "ggplot2", "lubridate", "zoo", "scales", "cowplot", "patchwork", "plm", "lmtest")
+packages_version <- c(
+  "readr" = "2.1.4", 
+  "dplyr" = "1.1.2", 
+  "ggplot2" = "3.4.2", 
+  "lubridate" = "1.9.2", 
+  "zoo" = "1.8-12", 
+  "scales" = "1.2.1", 
+  "cowplot" = "1.1.1", 
+  "patchwork" = "1.1.2", 
+  "plm" = "2.6-3", 
+  "lmtest" = "0.9-40",
+  "coefplot" = "1.2.8"
+)
 
-check_and_install <- function(pkg){
-  if(!require(pkg, character.only = TRUE)){
-    install.packages(pkg, dependencies = TRUE)
-    library(pkg, character.only = TRUE)
+check_and_install <- function(package, version) {
+  if (!require(package, character.only = TRUE)) {
+    package_version_install <- paste0(package, "@", version)
+    remotes::install_version(package_version_install)
   }
 }
 
-sapply(packages, check_and_install)
+mapply(check_and_install, names(packages_version), packages_version)
+
+set.seed(100)
 
 ```
 
@@ -735,7 +749,36 @@ For each unit increase in Fuel_Price (independent3), the Weekly_Sales is expecte
 For each unit increase in CPI (independent4), the Weekly_Sales is expected to increase by about 2.476 units, on average, assuming other factors remain constant.
 For each unit increase in Unemployment (independent5), the Weekly_Sales is expected to decrease by about 23.832 units, on average, assuming other factors remain constant.
     
+
+
 ```{r}
+coefplot(fixed_effects_model, title = "Fixed Effects Model")
+```
+
+```{r}
+coefplot(random_effects_model, title = "Random Effects Model")
+
+```
+
+```{r}
+residuals_fixed <- residuals(fixed_effects_model)
+residuals_random <- residuals(random_effects_model)
+```
+
+
+```{r}
+ggplot() +
+  geom_point(aes(x = fitted(fixed_effects_model), y = residuals_fixed)) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = "Fitted Values", y = "Residuals", title = "Fixed Effects Model Residuals")
+
+```
+
+```{r}
+ggplot() +
+  geom_point(aes(x = fitted(random_effects_model), y = residuals_random)) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = "Fitted Values", y = "Residuals", title = "Random Effects Model Residuals")
 
 ```
 
@@ -743,6 +786,3 @@ For each unit increase in Unemployment (independent5), the Weekly_Sales is expec
 
 ```
 
-```{r}
-
-```
