@@ -18,7 +18,9 @@ In Retail Industry, sales is the most important metric in their business model t
 
 In this below dataset We'll reproduce the wxisting analysis how Walmart Sales looks like (Trend and Seasonal) and explain wether available feature (macroeconomic condition) would be affecting it using Econometric Panel Regression (Fixed Effect and Random Effect).
 
-##All required libraries will be listed here. If a user does not have a required library, it will be automatically downloaded
+##All required libraries will be listed here. If a user does not have a required library, it will be automatically downloaded. We have added a version of packages to makes sure that in the future, ones would be able to reproduce our research.
+
+Additionally, we've set the seet to make the result reproductible.
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 
@@ -45,7 +47,7 @@ check_and_install <- function(package, version) {
 
 mapply(check_and_install, names(packages_version), packages_version)
 
-set.seed(100)
+
 
 ```
 
@@ -53,6 +55,7 @@ set.seed(100)
 
 ##First we read the dataset
 
+To read data, we use an url link not local file - this enables future researchers to easily read data
 ```{r}
 url<-"https://raw.githubusercontent.com/WojciechMisiura/rr_project/main/Walmart_Store_sales.csv" #as we already added our dataset to github, we will read data directly from github
 
@@ -650,7 +653,7 @@ model <- plm(dependent ~ independent, data = panel_data, model = "pooling")
 pooledOLS_res <- vcovHC(model, cluster = "group")
 
 residuals <- model$residuals
-
+summary(panel_data)
 
 ```
 Firstly, we run data into pooled OLS regression method. There are 3 classical assumptions that have to be fulfilled. Two of them can help us in choosing between PooledOLS and Fixed Effect and Random Effect Model. These are *heteroskedasticity* and *autocorrelation*. If these two assumptions cant be fulfilled by PooledOLS, then Fixed Effect or Random Effect might be more suitable.
@@ -661,15 +664,14 @@ pooled_data <- cbind(panel_data, residuals)
 pooled_data <- pooled_data[, !colnames(pooled_data) %in% c("Date")]
 pooled_data <- na.omit(pooled_data)
 
-# Perform Breusch-Pagan test for heteroskedasticity
+
 bp_test <- bptest(residuals ~ independent, data = pooled_data)
 result_auto <- c(bp_test$statistic, bp_test$p.value, bp_test$parameter[1], bp_test$parameter[2])
 names(result_auto) <- c("LM-Stat", "LM p-val", "F-Stat", "F p-val")
 
 print(result_auto)
-
 ```
-If p value less than alpha (0.05), then there is no heteroskedasticity vice versa. Because p value is 3.53 that more than 0.05, so there is violation in heteroskedasticity.
+If p value less than alpha (0.05), then there is no heteroskedasticity vice versa. Because p value is 3.53 that more than 0.05, so there is violation in heteroskedasticity. However, please note that in R bptest() returns a Chi-squared statistic not an F statistics and F p-value - which means that we use different method than the one in Python but both are valid and can allow us to come to similar conclusion using differen statistical methods. For Chi-Squared we received the same value in R as in Python, but we can't compute f-statistics.
 ```{r}
 
 # Calculate Durbin-Watson statistic
@@ -678,7 +680,7 @@ durbin_watson_test <- dwtest(dependent ~ Temperature + Fuel_Price + CPI + Unempl
 print(durbin_watson_test)
 
 ```
-If p value less than alpha (0.05), then there is no autocorrelation vice versa. Because p value is 3.53 that is more than 0.05, so there is violation in autocorrelation.
+If p value less than alpha (0.05), then there is no autocorrelation vice versa. Because p value is 3.53 that more than 0.05, so there is violation in autocorrelation.
 
 Well here we will use Fixed Effect and Random Effect method.
 ```{r}
@@ -688,8 +690,6 @@ fixed_effects_model <- plm(dependent ~ independent, data = panel_data, model = "
 
 # Summarizing model
 summary(fixed_effects_model)
-
-
 ```
 Random effects
 ```{r}
@@ -722,7 +722,8 @@ print(wooldridge_test_fe)
 
 
 ```
-In this test, p-value is effectively 0 which means that we reject the null hypothesis. 
+In this test, p-value is effectively 0 which means that we reject the null hypothesis. This means that there are no signs of correlation in our data and used models in kaggle might not be reliable.
+
 
 ```{r}
 #Breusch-Pagan Lagrange Multiplier Test
@@ -782,18 +783,4 @@ ggplot() +
 
 ```
 
-Challenges:
-
-There are several challenges when using fixed effects model for this analysis. Some of them are:
-
-Limited variability: Fixed effects models rely on within-group variation to identify the effects of the independent variables. If there is limited variability in the dependent variable or the independent variables within each individual or entity, it can reduce the efficiency and power of the estimates.
-
-Collinearity: Fixed effects models can suffer from collinearity issues, especially when there are high levels of correlation among the independent variables. Collinearity can make it difficult to separate the effects of individual-specific characteristics from the effects of the independent variables, leading to imprecise estimates and inflated standard errors.
-
-Endogeneity: Endogeneity can still be a concern in fixed effects models. If there are time-varying omitted variables that are correlated with both the independent variables and the error term, it can lead to endogeneity. This can result in biased and inconsistent estimates.
-
-Due to these challenges it is necessary to consider that the final estimates may not represent real world scenario and we should be cautious in relying too much on it.
-```{r}
-
-```
 
