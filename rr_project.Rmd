@@ -23,6 +23,8 @@ In this below dataset We'll reproduce the wxisting analysis how Walmart Sales lo
 Additionally, we've set the seet to make the result reproductible.
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
+install.packages("remotes")
+library(remotes)
 
 packages_version <- c(
   "readr" = "2.1.4", 
