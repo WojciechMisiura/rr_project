@@ -123,7 +123,7 @@ data_sub <- data[, !(names(data) %in% c('Month', 'Year', 'Store'))]
 summary(data_sub)
 ```
 
-## A. Aggregate Time Series Analysis
+## Aggregate Time Series Analysis
 How is the Walmart aggregate sales looks like? Does this sales has seasonal component?
 ## Below is the Aggregate Sales for the whole Walmart Store
 
@@ -474,7 +474,7 @@ plot_combined
 ```
 
 
-Below is the analysis of 6 stores separately.
+## Below is the analysis of 6 stores separately.
 ```{r}
 
 # Create quarterly month labels
@@ -642,6 +642,8 @@ panel_data <- panel %>%
 panel_data
 
 ```
+
+
 ```{r}
 
 # Building dependent and independent variables
@@ -656,7 +658,9 @@ residuals <- model$residuals
 summary(panel_data)
 
 ```
+
 Firstly, we run data into pooled OLS regression method. There are 3 classical assumptions that have to be fulfilled. Two of them can help us in choosing between PooledOLS and Fixed Effect and Random Effect Model. These are *heteroskedasticity* and *autocorrelation*. If these two assumptions cant be fulfilled by PooledOLS, then Fixed Effect or Random Effect might be more suitable.
+
 ```{r}
 
 # Create pooled data by concatenating panel_data and residuals
@@ -671,7 +675,9 @@ names(result_auto) <- c("LM-Stat", "LM p-val", "F-Stat", "F p-val")
 
 print(result_auto)
 ```
+
 If p value less than alpha (0.05), then there is no heteroskedasticity vice versa. Because p value is 3.53 that more than 0.05, so there is violation in heteroskedasticity. However, please note that in R bptest() returns a Chi-squared statistic not an F statistics and F p-value - which means that we use different method than the one in Python but both are valid and can allow us to come to similar conclusion using differen statistical methods. For Chi-Squared we received the same value in R as in Python, but we can't compute f-statistics.
+
 ```{r}
 
 # Calculate Durbin-Watson statistic
@@ -680,9 +686,13 @@ durbin_watson_test <- dwtest(dependent ~ Temperature + Fuel_Price + CPI + Unempl
 print(durbin_watson_test)
 
 ```
+
+
 If p value less than alpha (0.05), then there is no autocorrelation vice versa. Because p value is 3.53 that more than 0.05, so there is violation in autocorrelation.
 
 Well here we will use Fixed Effect and Random Effect method.
+
+## Fixed effects
 ```{r}
 
 # Fitting fixed effects model
@@ -691,7 +701,9 @@ fixed_effects_model <- plm(dependent ~ independent, data = panel_data, model = "
 # Summarizing model
 summary(fixed_effects_model)
 ```
-Random effects
+
+
+## Random effects
 ```{r}
 # Fitting random effects model
 random_effects_model <- plm(dependent ~ independent, data = panel_data, model = "random")
@@ -707,6 +719,7 @@ hausman_test <- phtest(fixed_effects_model, random_effects_model)
 
 print(hausman_test)
 ```
+
 As p-value is 0.3936, our p-value is greater than 0.05 so we do not reject the null hypothesis. This means that both the fixed effects model and the random effects model are consistent. 
 
 ```{r}
@@ -722,6 +735,7 @@ print(wooldridge_test_fe)
 
 
 ```
+
 In this test, p-value is effectively 0 which means that we reject the null hypothesis. This means that there are no signs of correlation in our data and used models in kaggle might not be reliable.
 
 
@@ -734,6 +748,7 @@ breusch_pagan_test <- plmtest(pooled_model, type = "bp")
 # Print the results
 print(breusch_pagan_test)
 ```
+
 As p-value is effectively zero, we reject the null hypothesis of the test. This suggests that there is evidence of random effects in our data. Random effects model may be more appropriate than a simple pooled OLS model.
 
 
@@ -743,6 +758,7 @@ robust_se <- sqrt(diag(vcovHC(model, type = "HC3", cluster = "group")))
 print(robust_se)
 print(model)
 ```
+
 These are the estimated coefficients from your random effects model.
 
 For each unit increase in Temperature (independent2), the Weekly_Sales is expected to decrease by about 1.031 units, on average, assuming other factors remain constant.
@@ -783,5 +799,15 @@ ggplot() +
 
 ```
 
-References
+## Conclusion
+The process of reproduction (did it succeed? what where the challenges? what was missing in the original source? what didn’t work? what could have been done in the original work instead? etc.)
+
+Overall our project was successfully reproduced from the source project.There were many chanllesges faced
+as we had to reproduce teh project from python to R and for that we need to understand some functions and methods in R that can reproduce the same result as it was produced in original.
+In our reproduced code we have introduced new plots about different stores and also we have conducted new econometrics model and try to produce the result and compare it with already applied models.
+
+Moreover, for any similar data set our process is also reproducible.
+
+
+## References
 https://www.kaggle.com/code/alfiansyahachmad/walmart-sales-analysis-eda-and-econometrics
